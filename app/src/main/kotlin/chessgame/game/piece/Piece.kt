@@ -1,10 +1,10 @@
 package chessgame.piece
 
+import chessgame.mover.MovementBehaviour
 import enums.Colour
-import enums.PieceType
 import validator.MovementValidator
 
 /**
  * @author Agustin Augurusa
  */
-data class Piece(val id: Int, val type: PieceType, val mv: MovementValidator, val colour: Colour)
+data class Piece(val id: String, val type: String, val mv: MovementValidator, val colour: Colour, val mb: MovementBehaviour)

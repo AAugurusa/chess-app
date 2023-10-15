@@ -1,4 +1,4 @@
-package validator.basic
+package chessgame.validator.piece
 
 import adt.ResultMovement
 import chessgame.GameState
@@ -8,8 +8,11 @@ import validator.MovementValidator
 /**
  * @author Agustin Augurusa
  */
-class DiferentColourValidator : MovementValidator{
+class MaxMovementCount(
+    val max : Int,
+    val pieceId : String?
+) : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        TODO("Not yet implemented")
+        TODO()
     }
 }

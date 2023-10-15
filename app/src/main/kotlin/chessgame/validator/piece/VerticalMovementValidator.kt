@@ -1,4 +1,4 @@
-package validator.piece
+package chessgame.validator.piece
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
@@ -6,20 +6,17 @@ import adt.SuccessfulMovementResult
 import chessgame.GameState
 import chessgame.movement.Movement
 import validator.MovementValidator
+import kotlin.math.abs
 
 /**
  * @author Agustin Augurusa
  */
-class ChancellorMovementValidator : MovementValidator{
-    private val knightMv = KnightMovementValidator()
-    private val rookMv = RookMovementValidator()
+class VerticalMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        val rookResult = rookMv.validate(movement, gameState) is SuccessfulMovementResult
-        val knightResult = knightMv.validate(movement, gameState) is SuccessfulMovementResult
-
-        if(rookResult || knightResult){
+        if ((movement.from.row != movement.to.row) && (movement.from.column == movement.to.column)) {
             return SuccessfulMovementResult()
         }
         return InvalidMovementResult("Piece is not moving correctly")
     }
+
 }

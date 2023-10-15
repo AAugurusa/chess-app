@@ -1,4 +1,4 @@
-package validator.standar
+package chessgame.validator.piece
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
@@ -11,15 +11,16 @@ import kotlin.math.abs
 /**
  * @author Agustin Augurusa
  */
-class LimitMovementValidator(
-    val limit: Int
+class LMovementValidator(
+    private val fstJump: Int,
+    private val sndJump: Int,
 ) : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        val difCol = abs(movement.to.column - movement.from.column)
-        val difRow = abs(movement.to.row - movement.from.row)
-        if(difCol <= limit &&  difRow <= limit){
+        val auxX = abs(movement.to.column - movement.from.column)
+        val auxY = abs(movement.to.row - movement.from.row)
+        if ((auxX == fstJump && auxY == sndJump) || (auxX == sndJump && auxY == fstJump)) {
             return SuccessfulMovementResult()
         }
-        return InvalidMovementResult("The movement exceeds its limit")
+        return InvalidMovementResult("Piece is not moving correctly")
     }
 }

@@ -1,4 +1,4 @@
-package validator.basic
+package chessgame.validator.basic
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
@@ -10,12 +10,11 @@ import validator.MovementValidator
 /**
  * @author Agustin Augurusa
  */
-class ColourValidator: MovementValidator {
+class NotAPieceMovementValidator: MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        val pieceColour = gameState.board.getPieceMap().getValue(movement.from).colour
-        if(pieceColour == gameState.currColourTurn){
+        if(gameState.getPieceMap().containsKey(movement.from)){
             return SuccessfulMovementResult()
         }
-        return InvalidMovementResult("Piece if from another colour")
+        return InvalidMovementResult("No piece in from position")
     }
 }

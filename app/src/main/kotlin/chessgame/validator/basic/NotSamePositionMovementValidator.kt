@@ -1,4 +1,4 @@
-package validator.basic
+package chessgame.validator.basic
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
@@ -10,11 +10,11 @@ import validator.MovementValidator
 /**
  * @author Agustin Augurusa
  */
-class HasPieceValidator: MovementValidator {
+class NotSamePositionMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        if(gameState.board.getPieceMap().contains(movement.from)){
-            return SuccessfulMovementResult()
+        if ((movement.to.row === movement.from.row) && (movement.to.column === movement.from.column)) {
+            return InvalidMovementResult("From and to are the same")
         }
-        return InvalidMovementResult("There is no piece to move")
+        return SuccessfulMovementResult()
     }
 }

@@ -1,4 +1,4 @@
-package validator.piece
+package chessgame.validator.piece
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
@@ -10,17 +10,12 @@ import validator.MovementValidator
 /**
  * @author Agustin Augurusa
  */
-class ArchbishopMovementValidator : MovementValidator{
+class HorizontalMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        val knightMv = KnightMovementValidator()
-        val bishopMv = BishopMovementValidator()
-
-        val bishopResult = bishopMv.validate(movement, gameState) is SuccessfulMovementResult
-        val knightResult = knightMv.validate(movement, gameState) is SuccessfulMovementResult
-
-        if(bishopResult || knightResult){
+        if ((movement.from.column != movement.to.column) && (movement.from.row == movement.to.row)) {
             return SuccessfulMovementResult()
         }
         return InvalidMovementResult("Piece is not moving correctly")
     }
+
 }

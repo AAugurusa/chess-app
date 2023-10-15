@@ -1,46 +1,44 @@
-package factory
+package chessgame.factory
 
 import enums.Colour
-import enums.PieceType
 import chessgame.piece.Piece
-import validator.piece.*
 
 /**
  * @author Agustin Augurusa
  */
 class PieceFactory {
 
-    fun rookFactory(id: Int, colour: Colour): Piece{
-        return Piece(id, PieceType.ROOK, RookMovementValidator(), colour)
-    }
-
-    fun pawnFactory(id: Int, colour: Colour): Piece{
+    fun rookFactory(id: String, colour: Colour): Piece{
         TODO()
     }
 
-    fun kingFactory(id: Int, colour: Colour): Piece{
+    fun pawnFactory(id: String, colour: Colour): Piece{
         TODO()
     }
 
-    fun bishopFactory(id: Int, colour: Colour): Piece{
-        return Piece(id, PieceType.BISHOP, BishopMovementValidator(), colour)
+    fun kingFactory(id: String, colour: Colour): Piece{
+        TODO()
     }
 
-    fun queenFactory(id: Int, colour: Colour): Piece{
-        return Piece(id, PieceType.QUEEN, QueenMovementValidator(), colour)
+    fun bishopFactory(id: String, colour: Colour): Piece{
+        TODO()
     }
 
-    fun knightFactory(id: Int, colour: Colour): Piece{
-        return Piece(id, PieceType.KNIGHT, KnightMovementValidator(), colour)
+    fun queenFactory(id: String, colour: Colour): Piece{
+        TODO()
+    }
+
+    fun knightFactory(id: String, colour: Colour): Piece{
+        TODO()
     }
 
     //EXTRA PIECES:
-    fun archbishopFactory(id: Int, colour: Colour): Piece{
-        return Piece(id, PieceType.ARCHBISHOP, ArchbishopMovementValidator(), colour)
+    fun archbishopFactory(id: String, colour: Colour): Piece{
+        TODO()
     }
 
-    fun chancellorFactory(id: Int, colour: Colour): Piece{
-        return Piece(id, PieceType.CHANCELLOR, ChancellorMovementValidator(), colour)
+    fun chancellorFactory(id: String, colour: Colour): Piece{
+        TODO()
     }
 
 }
