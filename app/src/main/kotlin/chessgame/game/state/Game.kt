@@ -1,4 +1,4 @@
-package chessgame
+package chessgame.game.state
 
 /**
  * @author Agustin Augurusa

@@ -1,6 +1,6 @@
 package chessgame.mover
 
-import chessgame.GameState
+import chessgame.game.state.GameState
 import chessgame.movement.Movement
 
 /**

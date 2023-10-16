@@ -3,7 +3,7 @@ package chessgame.validator.logic
 import adt.InvalidMovementResult
 import adt.ResultMovement
 import adt.SuccessfulMovementResult
-import chessgame.GameState
+import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import validator.MovementValidator
 

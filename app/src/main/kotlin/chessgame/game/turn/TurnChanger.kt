@@ -1,6 +1,6 @@
 package chessgame.turn
 
-import chessgame.GameState
+import chessgame.game.state.GameState
 import enums.Colour
 
 /**

@@ -1,7 +1,6 @@
 package chessgame.mover
 
-import chessgame.GameState
-import chessgame.game.board.Board
+import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import factory.BoardFactory
 

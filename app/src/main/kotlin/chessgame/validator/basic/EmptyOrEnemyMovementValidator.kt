@@ -10,11 +10,17 @@ import validator.MovementValidator
 /**
  * @author Agustin Augurusa
  */
-class ColourMovementValidator : MovementValidator {
+class EmptyOrEnemyMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        if(gameState.board.pieceMap.get(movement.from)!!.colour === gameState.currColour){
+        if(!gameState.getPieceMap().containsKey(movement.to)){
             return SuccessfulMovementResult()
+        }else{
+            if(gameState.getPieceMap().get(movement.to)!!.colour != gameState.currColour){
+                return SuccessfulMovementResult()
+            }else{
+                return InvalidMovementResult("To Position is occupied by a piece of the same colour")
+            }
         }
-        return InvalidMovementResult("The piece is not from actual turn colour")
     }
+
 }

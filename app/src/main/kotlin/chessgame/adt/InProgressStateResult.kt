@@ -1,6 +1,6 @@
 package adt
 
-import chessgame.GameState
+import chessgame.game.state.GameState
 
 /**
  * @author Agustin Augurusa
