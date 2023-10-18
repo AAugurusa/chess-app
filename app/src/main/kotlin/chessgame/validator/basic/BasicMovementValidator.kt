@@ -12,9 +12,9 @@ import validator.basic.InBoardValidator
  */
 class BasicMovementValidator : MovementValidator{
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        val basicMv = AndMovementValidator(listOf(ColourMovementValidator(),
+        val basicMv = AndMovementValidator(listOf(NotAPieceMovementValidator(),
                 EmptyOrEnemyMovementValidator(), InBoardValidator(),
-                NotAPieceMovementValidator(), NotSamePositionMovementValidator()))
+                NotSamePositionMovementValidator(), ColourMovementValidator()))
 
         return basicMv.validate(movement, gameState)
     }

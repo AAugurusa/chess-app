@@ -3,4 +3,4 @@ package adt
 /**
  * @author Agustin Augurusa
  */
-class TieStateResult(val description: String)
+class TieStateResult(val description: String) : StateEvaluatorResult

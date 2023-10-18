@@ -7,7 +7,7 @@ import chessgame.piece.Piece
 /**
  * @author Agustin Augurusa
  */
-class History(val boardHistory: List<Board>) {
+data class History(val boardHistory: List<Board>) {
 
     fun getPosById(id: String): List<Position> {
         val positions = boardHistory.flatMap { board ->
