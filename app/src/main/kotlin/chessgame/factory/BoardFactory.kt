@@ -54,8 +54,8 @@ class BoardFactory {
             (Position(1, 8) to pieceFactory.rookFactory("RB1", Colour.BLACK)),
             (Position(2, 8) to pieceFactory.knightFactory("KB1", Colour.BLACK)),
             (Position(3, 8) to pieceFactory.bishopFactory("BB1", Colour.BLACK)),
-            (Position(4, 8) to pieceFactory.kingFactory("KB", Colour.BLACK)),
-            (Position(5, 8) to pieceFactory.queenFactory("QB", Colour.BLACK)),
+            (Position(4, 8) to pieceFactory.queenFactory("QB", Colour.BLACK)),
+            (Position(5, 8) to pieceFactory.kingFactory("KB", Colour.BLACK)),
             (Position(6, 8) to pieceFactory.bishopFactory("BB2", Colour.BLACK)),
             (Position(7, 8) to pieceFactory.knightFactory("KB2", Colour.BLACK)),
             (Position(8, 8) to pieceFactory.rookFactory("RB2", Colour.BLACK))

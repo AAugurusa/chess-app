@@ -3,6 +3,7 @@ package chessgame.factory
 import chessgame.mover.NormalMovementBehaviour
 import enums.Colour
 import chessgame.piece.Piece
+import chessgame.validator.basic.BasicMovementValidator
 import chessgame.validator.logic.AndMovementValidator
 import chessgame.validator.piece.*
 import validator.mati.OrMovementValidator
@@ -30,8 +31,8 @@ class PieceFactory {
         return Piece(id, "PAWN", mv, colour, NormalMovementBehaviour())
     }
 
-    fun kingFactory(id: String, colour: Colour): Piece{
-        TODO()
+    fun kingFactory(id: String, colour: Colour): Piece{//HACER
+        return Piece(id, "KING", BasicMovementValidator(), colour, NormalMovementBehaviour())
     }
 
     fun bishopFactory(id: String, colour: Colour): Piece{

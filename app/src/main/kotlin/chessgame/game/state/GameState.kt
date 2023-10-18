@@ -1,7 +1,9 @@
 package chessgame.game.state
 
 import adt.StateEvaluatorResult
+import adt.SuccessfulMovementResult
 import chessgame.game.board.Board
+import chessgame.movement.Movement
 import chessgame.movement.Position
 import chessgame.piece.Piece
 import enums.Colour
@@ -22,5 +24,36 @@ data class GameState(val board: Board, val currColour: Colour, val history: Hist
     fun getPositionByPieceID(id: String): Position {
         return board.pieceMap.entries.find { it.value.id == id }!!.key
     }
+
+
+    fun hasAnyValidMovement(piece: Piece): Boolean{
+        val fromPosition = board.pieceMap.filterKeys { it == getPositionByPieceID(piece.id) }.keys.first()
+        for (i in 1.. board.numCol){
+            for (j in 1.. board.numRow){
+                val toPosition = Position(i,j)
+                val auxMovement = Movement(fromPosition, toPosition)
+                if (piece.mv.validate(auxMovement, gameState = this) is SuccessfulMovementResult){
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    fun positionsThatThreatenKing(colour: Colour): List<Position> {
+        var listOfPosition = mutableListOf<Position>()
+        val kingPosition = board.pieceMap.entries.find { it.value.type == "KING" && it.value.colour == colour }!!.key
+        val enemyPieces = board.pieceMap.entries.filter { it.value.colour !== colour }
+        for (enemyPiece in enemyPieces){
+            val enemyPiecePosition = enemyPiece.key
+            val enemyPieceMovement = Movement(kingPosition, enemyPiecePosition)
+            if (enemyPiece.value.mv.validate(enemyPieceMovement, gameState = this) is SuccessfulMovementResult){
+                listOfPosition.add(enemyPiecePosition)
+            }
+        }
+        val immutableList = listOfPosition.toList()
+        return immutableList
+    }
+
 
 }

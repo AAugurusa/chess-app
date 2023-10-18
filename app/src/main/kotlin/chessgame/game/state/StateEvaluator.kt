@@ -1,17 +1,31 @@
 package chessgame.game.state
 
 import adt.StateEvaluatorResult
+import adt.SuccessfulMovementResult
 import adt.TieStateResult
+import adt.WinStateResult
+import chessgame.movement.Movement
+import chessgame.movement.Position
 import enums.Colour
+import factory.BoardFactory
 
 /**
  * @author Agustin Augurusa
  */
 class StateEvaluator {
     fun stateEvaluator(gameState: GameState): StateEvaluatorResult{
-        if(isThereAWayOfMate(gameState)){
-
+        if(isThereAWayOfMate(gameState)){//SI NINGUNA SE CUMPLE SIGUE
+            if(canAPieceMove(gameState)){
+                if(isCheckMate(gameState)){
+                    when(gameState.currColour){
+                        Colour.WHITE -> return WinStateResult(Colour.BLACK)
+                        Colour.BLACK -> return WinStateResult(Colour.WHITE)
+                    }
+                }
+            }
+            return TieStateResult("Stalemate")
         }
+
         return TieStateResult("Insuficient material")
     }
 
@@ -48,8 +62,52 @@ class StateEvaluator {
         return true
     }
 
-    private fun canAPieceMove(){
-        TODO()
+    private fun canAPieceMove(gameState: GameState): Boolean{
+        val pieceList = gameState.getPieceMap().entries.filter { it.value.colour === gameState.currColour}
+        for (piece in pieceList){
+            if (gameState.hasAnyValidMovement(piece.value)){
+                return true
+            }
+        }
+        return false
+    }
+
+//    private fun canKingMoveToNotThreatenPosition(gameState: GameState): Boolean{
+//        val kingPosition = gameState.getPieceMap().entries.find { it.value.type == "KING" && it.value.colour == gameState.currColour }!!.key
+//        for (i in 1.. gameState.board.numCol){
+//            for (j in 1.. gameState.board.numRow){
+//                val toPosition = Position(i,j)
+//                val auxMovement = Movement(toPosition, kingPosition)
+//                if (gameState.getPiece(kingPosition).mv.validate(auxMovement, gameState = gameState) is SuccessfulMovementResult){
+//                    return true
+//                }
+//            }
+//        }
+//        return false
+//    }
+
+    private fun isCheckMate(gameState: GameState) : Boolean {
+        val positionsOfThreats = gameState.positionsThatThreatenKing(gameState.currColour)
+        if(positionsOfThreats.isNotEmpty()){
+            val currColourPieces = gameState.getPieceMap().entries.filter { it.value.colour === gameState.currColour}
+            for (piece in currColourPieces){
+                for (i in 1..gameState.board.numCol){
+                    for (j in 1..gameState.board.numRow){
+                        val toPosition = Position(i,j)
+                        val fromPosition = piece.key
+                        val auxMovement = Movement(toPosition, fromPosition)
+                        if (piece.value.mv.validate(auxMovement, gameState = gameState) is SuccessfulMovementResult){
+                            val auxBoardFactory = BoardFactory()
+                            val auxGameState = GameState(auxBoardFactory.boardFromReference(gameState.board, auxMovement), gameState.currColour, gameState.history, gameState.state)
+                            if(auxGameState.positionsThatThreatenKing(gameState.currColour).isEmpty()){
+                                return false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true
     }
 
 }

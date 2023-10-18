@@ -9,8 +9,8 @@ import enums.Colour
 class TurnChanger {
     fun changeTurn(gameState: GameState): GameState {
         when(gameState.currColour){
-            Colour.WHITE -> return GameState(gameState.board, Colour.BLACK, gameState.history)
-            Colour.BLACK -> return GameState(gameState.board, Colour.WHITE, gameState.history)
+            Colour.WHITE -> return GameState(gameState.board, Colour.BLACK, gameState.history,gameState.state)
+            Colour.BLACK -> return GameState(gameState.board, Colour.WHITE, gameState.history, gameState.state)
         }
     }
 }
