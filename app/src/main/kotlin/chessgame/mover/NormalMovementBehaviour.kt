@@ -7,10 +7,9 @@ import factory.BoardFactory
 /**
  * @author Agustin Augurusa
  */
-class NormalMovementBehaviour(
-    val boardFactory: BoardFactory
-) : MovementBehaviour {
+class NormalMovementBehaviour() : MovementBehaviour {
     override fun move(gameState: GameState, movement: Movement): GameState {
+        val boardFactory = BoardFactory()
         return gameState.copy(board = boardFactory.boardFromReference(gameState.board, movement))
     }
 

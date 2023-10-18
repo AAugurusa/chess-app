@@ -12,11 +12,10 @@ import kotlin.math.abs
 /**
  * @author Agustin Augurusa
  */
-class PathClearValidator(
-    val diagonalMovementValidator: DiagonalMovementValidator,
-    val verticalMovementValidator: VerticalMovementValidator,
-    val horizontalMovementValidator: HorizontalMovementValidator
-) : MovementValidator {
+class PathClearValidator() : MovementValidator {
+    val diagonalMovementValidator = DiagonalMovementValidator()
+    val verticalMovementValidator = VerticalMovementValidator()
+    val horizontalMovementValidator = HorizontalMovementValidator()
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         if (diagonalMovementValidator.validate(movement, gameState) is SuccessfulMovementResult) {
             return diagonalPathMovementValidator(movement, gameState)

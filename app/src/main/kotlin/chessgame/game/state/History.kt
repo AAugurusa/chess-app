@@ -9,7 +9,10 @@ import chessgame.piece.Piece
  */
 class History(val boardHistory: List<Board>) {
 
-    fun getPosById(id: String, boardNum: Int): List<Position> {
-        TODO()
+    fun getPosById(id: String): List<Position> {
+        val positions = boardHistory.flatMap { board ->
+            board.pieceMap.filterValues { it.id == id }.keys.toList()
+        }
+        return positions
     }
 }
