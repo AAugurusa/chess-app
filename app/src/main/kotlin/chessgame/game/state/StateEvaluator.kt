@@ -12,7 +12,7 @@ import factory.BoardFactory
 /**
  * @author Agustin Augurusa
  */
-class StateEvaluator {
+class StateEvaluator {//QUEDA ESPECIFICO DEL CLASIC SUBILO UN POCO MAS PARA DAMAS ---> PASARLE CONDICIONES
     fun stateEvaluator(gameState: GameState): StateEvaluatorResult{
         if(isThereAWayOfMate(gameState)){//SI NINGUNA SE CUMPLE SIGUE
             if(canAPieceMove(gameState)){

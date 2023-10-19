@@ -56,4 +56,9 @@ data class GameState(val board: Board, val currColour: Colour, val history: Hist
     }
 
 
+    fun getBoardsHistory(): List<Board> {
+        return history.boardHistory
+    }
+
+
 }
