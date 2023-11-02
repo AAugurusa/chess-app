@@ -13,7 +13,7 @@ import validator.MovementValidator
 class OtherColourMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         if (gameState.getPieceMap().containsKey(movement.to)) {
-            if (gameState.getPieceMap().get(movement.to)!!.colour != gameState.currColour) {
+            if (gameState.getPieceMap().get(movement.to)!!.colour != gameState.getCurrentColour()) {
                 return SuccessfulMovementResult()
             }
         }

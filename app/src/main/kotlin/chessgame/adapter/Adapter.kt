@@ -1,6 +1,8 @@
 package chessgame.adapter
 
+import adt.InvalidMovementResult
 import adt.ResultMovement
+import adt.SuccessfulMovementResult
 import chessgame.game.board.Board
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
@@ -51,11 +53,18 @@ class Adapter {
         val board : Board = gameState.board
         val boardSize = adaptBoardSize(board.numCol, board.numCol)
         val chessPieces = adaptPiecesToChessPieces(board)
-        val playerColor = adaptPieceColorToPlayerColor(gameState.currColour)
+        val playerColor = adaptPieceColorToPlayerColor(gameState.getCurrentColour())
         return InitialState(boardSize, chessPieces, playerColor)
     }
 
-    fun adaptMyMoveResultToMoveResult(result: ResultMovement) : edu.austral.dissis.chess.gui.MoveResult{
-        TODO()
+    fun adaptGameState(gameState: GameState) : NewGameState{
+        val pieces = adaptPiecesToChessPieces(gameState.board)
+        val playerColor = adaptPieceColorToPlayerColor(gameState.getCurrentColour())
+        return NewGameState(pieces, playerColor)
     }
+
+    fun translateMoveToMovement(move: Move) : Movement {
+        return Movement(Position(move.to.column, move.to.row), Position(move.from.column, move.from.row))
+    }
+
 }

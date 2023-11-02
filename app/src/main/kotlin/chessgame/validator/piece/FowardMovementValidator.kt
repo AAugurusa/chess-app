@@ -14,7 +14,7 @@ import validator.MovementValidator
 class FowardMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         if(movement.to.column === movement.from.column){
-            when(gameState.currColour){
+            when(gameState.getCurrentColour()){
                 Colour.WHITE -> {
                     if(movement.to.row > movement.from.row){
                         return SuccessfulMovementResult()

@@ -3,6 +3,7 @@ package chessgame.game.state
 import adt.StateEvaluatorResult
 import adt.SuccessfulMovementResult
 import chessgame.game.board.Board
+import chessgame.game.turn.TurnStrategy
 import chessgame.movement.Movement
 import chessgame.movement.Position
 import chessgame.piece.Piece
@@ -11,7 +12,7 @@ import enums.Colour
 /**
  * @author Agustin Augurusa
  */
-data class GameState(val board: Board, val currColour: Colour, val history: History, val state: StateEvaluatorResult) {
+data class GameState(val board: Board, val currColour: TurnStrategy, val history: History, val state: StateEvaluatorResult) {
 
     fun getPieceMap(): Map<Position, Piece> {
         return board.pieceMap
@@ -26,7 +27,7 @@ data class GameState(val board: Board, val currColour: Colour, val history: Hist
     }
 
 
-    fun hasAnyValidMovement(piece: Piece): Boolean{
+    fun pieceHasAnyValidMovement(piece: Piece): Boolean{
         val fromPosition = board.pieceMap.filterKeys { it == getPositionByPieceID(piece.id) }.keys.first()
         for (i in 1.. board.numCol){
             for (j in 1.. board.numRow){
@@ -60,5 +61,8 @@ data class GameState(val board: Board, val currColour: Colour, val history: Hist
         return history.boardHistory
     }
 
+    fun getCurrentColour(): Colour{
+        return currColour.getCurrentColour()
+    }
 
 }

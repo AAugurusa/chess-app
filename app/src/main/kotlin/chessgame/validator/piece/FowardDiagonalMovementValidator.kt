@@ -14,7 +14,7 @@ import kotlin.math.abs
  */
 class FowardDiagonalMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        when (gameState.currColour) {
+        when (gameState.getCurrentColour()) {
             Colour.WHITE -> {
                 if (movement.to.row > movement.from.row) {
                     val auxX = (movement.to.column - movement.from.column)

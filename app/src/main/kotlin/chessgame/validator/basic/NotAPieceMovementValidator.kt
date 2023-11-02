@@ -12,7 +12,7 @@ import validator.MovementValidator
  */
 class NotAPieceMovementValidator: MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        if(gameState.getPieceMap().containsKey(movement.from)){
+        if(gameState.getPieceMap().contains(movement.from)){
             return SuccessfulMovementResult()
         }
         return InvalidMovementResult("No piece in from position")

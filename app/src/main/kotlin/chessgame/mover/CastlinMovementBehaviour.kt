@@ -16,7 +16,7 @@ class CastlinMovementBehaviour : MovementBehaviour {
         val newGameState = king.mb.move(gameState, movement)
 
         if(difAux > 0){
-            when(gameState.currColour){
+            when(gameState.getCurrentColour()){
                 WHITE -> {
                     val rook = gameState.getPiece(Position(gameState.board.numCol,1))
                     return rook.mb.move(newGameState, Movement(Position(movement.to.column-1, 1),Position(gameState.board.numCol,1)))
@@ -27,7 +27,7 @@ class CastlinMovementBehaviour : MovementBehaviour {
                 }
             }
         }else{
-            when(gameState.currColour){
+            when(gameState.getCurrentColour()){
                 WHITE -> {
                     val rook = gameState.getPiece(Position(1,1))
                     return rook.mb.move(newGameState, Movement(Position(movement.to.column+1, 1), Position(1,1)))

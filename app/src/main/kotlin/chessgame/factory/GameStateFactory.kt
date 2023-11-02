@@ -3,6 +3,7 @@ package chessgame.factory
 import adt.InProgressStateResult
 import chessgame.game.state.GameState
 import chessgame.game.state.History
+import chessgame.game.turn.RegularTurnStrategy
 import enums.Colour
 import factory.BoardFactory
 
@@ -11,7 +12,8 @@ import factory.BoardFactory
  */
 class GameStateFactory {
     val boardFactory = BoardFactory()
-    fun initialiceGameState(): GameState{
-        return GameState(boardFactory.initialiceNormalBoard(), Colour.WHITE, History(listOf()), InProgressStateResult())
+    fun normalGameStateBuilder(): GameState{
+        return GameState(boardFactory.initialiceNormalBoard(), RegularTurnStrategy(Colour.WHITE), History(listOf()), InProgressStateResult())
     }
+
 }

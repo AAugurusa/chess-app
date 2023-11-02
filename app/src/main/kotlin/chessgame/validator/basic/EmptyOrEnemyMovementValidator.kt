@@ -15,7 +15,7 @@ class EmptyOrEnemyMovementValidator : MovementValidator {
         if(!gameState.getPieceMap().containsKey(movement.to)){
             return SuccessfulMovementResult()
         }else{
-            if(gameState.getPieceMap().get(movement.to)!!.colour != gameState.currColour){
+            if(gameState.getPieceMap().get(movement.to)!!.colour != gameState.getCurrentColour()){
                 return SuccessfulMovementResult()
             }else{
                 return InvalidMovementResult("To Position is occupied by a piece of the same colour")
