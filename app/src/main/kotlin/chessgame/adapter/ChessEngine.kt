@@ -4,13 +4,13 @@ import adt.*
 import chessgame.factory.GameStateFactory
 import chessgame.factory.HistoryUpdater
 import chessgame.game.state.GameState
-import chessgame.game.state.StateEvaluator
+import chessgame.game.state.NormalStateEvaluator
 import chessgame.movement.Movement
 import chessgame.movement.PieceMover
 import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.dissis.chess.gui.InvalidMove
 import edu.austral.dissis.chess.gui.MoveResult
-import enums.Colour
+import game.common.colour.Colour
 import validator.GameValidator
 
 /**
@@ -22,7 +22,7 @@ class ChessEngine {
     private val gameStateFactory : GameStateFactory = GameStateFactory()
     private val historyUpdater : HistoryUpdater = HistoryUpdater()
     private val pieceMover : PieceMover = PieceMover()
-    private val stateEvaluator : StateEvaluator = StateEvaluator()
+    private val normalStateEvaluator : NormalStateEvaluator = NormalStateEvaluator()
     private val adapter = Adapter()
     private var gameState = init()
 
@@ -50,7 +50,7 @@ class ChessEngine {
     }
 
     private fun stateEvaluatorResult(): StateEvaluatorResult{
-        return stateEvaluator.stateEvaluator(gameState)
+        return normalStateEvaluator.validate(gameState)
     }
 
     private fun invalidMovementDescription(move: Movement): String{

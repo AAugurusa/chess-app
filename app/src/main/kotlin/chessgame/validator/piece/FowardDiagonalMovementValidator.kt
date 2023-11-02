@@ -5,8 +5,8 @@ import adt.ResultMovement
 import adt.SuccessfulMovementResult
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
-import enums.Colour
-import validator.MovementValidator
+import game.common.colour.Colour
+import game.common.validator.MovementValidator
 import kotlin.math.abs
 
 /**

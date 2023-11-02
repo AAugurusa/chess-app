@@ -1,6 +1,6 @@
 package adt
 
-import enums.Colour
+import game.common.colour.Colour
 
 /**
  * @author Agustin Augurusa

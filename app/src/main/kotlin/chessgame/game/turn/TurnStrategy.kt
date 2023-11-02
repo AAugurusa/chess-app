@@ -1,6 +1,6 @@
 package chessgame.game.turn
 
-import enums.Colour
+import game.common.colour.Colour
 
 /**
  * @author Agustin Augurusa

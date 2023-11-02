@@ -3,8 +3,7 @@ package chessgame.mover
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import chessgame.movement.Position
-import enums.Colour
-import enums.Colour.*
+import game.common.colour.Colour.*
 
 /**
  * @author Agustin Augurusa

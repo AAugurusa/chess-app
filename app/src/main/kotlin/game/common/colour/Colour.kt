@@ -1,4 +1,4 @@
-package enums
+package game.common.colour
 
 /**
  * @author Agustin Augurusa

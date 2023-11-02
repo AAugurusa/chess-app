@@ -1,12 +1,12 @@
 package chessgame.factory
 
 import chessgame.mover.NormalMovementBehaviour
-import enums.Colour
+import game.common.colour.Colour
 import chessgame.piece.Piece
 import chessgame.validator.basic.BasicMovementValidator
-import chessgame.validator.logic.AndMovementValidator
+import game.common.validator.logic.AndMovementValidator
 import chessgame.validator.piece.*
-import validator.mati.OrMovementValidator
+import game.common.validator.logic.OrMovementValidator
 
 /**
  * @author Agustin Augurusa
@@ -36,7 +36,9 @@ class PieceFactory {
     }
 
     fun bishopFactory(id: String, colour: Colour): Piece{
-        val mv = AndMovementValidator(listOf(NotInCheckMovementValidator(),AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator()))))
+        val mv = AndMovementValidator(listOf(NotInCheckMovementValidator(),
+            AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator()))
+        ))
         return Piece(id, "BISHOP", mv, colour, NormalMovementBehaviour())
     }
 
@@ -59,8 +61,10 @@ class PieceFactory {
     //EXTRA PIECES:
     fun archbishopFactory(id: String, colour: Colour): Piece{
         val mv = AndMovementValidator(listOf(NotInCheckMovementValidator(),OrMovementValidator(
-            listOf(AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator(), LMovementValidator(1,2))
-        )))))
+            listOf(
+                AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator(), LMovementValidator(1,2))
+        )
+            ))))
         return Piece(id, "ARCHBISHOP", mv, colour, NormalMovementBehaviour())
     }
 

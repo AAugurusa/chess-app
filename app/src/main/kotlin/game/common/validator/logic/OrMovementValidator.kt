@@ -1,25 +1,24 @@
-package chessgame.validator.logic
+package game.common.validator.logic
 
-import adt.InvalidMovementResult
 import adt.ResultMovement
 import adt.SuccessfulMovementResult
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
-import validator.MovementValidator
+import game.common.validator.MovementValidator
 
 /**
  * @author Agustin Augurusa
  */
-class AndMovementValidator(
+class OrMovementValidator(
     val mvList: List<MovementValidator>
 ) : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         for (mv in mvList) {
             val auxResult = mv.validate(movement, gameState)
-            if (auxResult is InvalidMovementResult) {
+            if (auxResult is SuccessfulMovementResult) {
                 return auxResult
             }
         }
-        return SuccessfulMovementResult()
+        return mvList.get(0).validate(movement, gameState)
     }
 }

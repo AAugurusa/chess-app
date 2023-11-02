@@ -3,7 +3,7 @@ package factory
 import chessgame.factory.PieceFactory
 import chessgame.game.board.Board
 import chessgame.movement.Movement
-import enums.Colour
+import game.common.colour.Colour
 import chessgame.movement.Position
 
 /**
@@ -11,14 +11,14 @@ import chessgame.movement.Position
  */
 class BoardFactory {
 
-    fun boardFromReference(board: Board, movement: Movement): Board{
+    fun boardFromReference(board: Board, movement: Movement): Board {
         val pieceToMove = board.pieceMap[movement.from]!!
 
         val updatedPieceMap = board.pieceMap
             .filterKeys { it != movement.from }
             .plus(movement.to to pieceToMove)
 
-       return board.copy(pieceMap = updatedPieceMap)
+        return board.copy(pieceMap = updatedPieceMap)
     }
 
     fun initialiceNormalBoard(): Board {
@@ -112,7 +112,6 @@ class BoardFactory {
             (Position(8, 8) to pieceFactory.chancellorFactory("CB", Colour.BLACK)),
             (Position(9, 8) to pieceFactory.knightFactory("KB2", Colour.BLACK)),
             (Position(10, 8) to pieceFactory.rookFactory("RB2", Colour.BLACK)),
-
 
             )
         return Board(pieceMap, 8, 10)

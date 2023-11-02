@@ -3,19 +3,18 @@ package chessgame.validator.piece
 import adt.InvalidMovementResult
 import adt.ResultMovement
 import adt.SuccessfulMovementResult
-import chessgame.game.board.Board
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import chessgame.movement.Position
-import enums.Colour
-import enums.Colour.*
+import game.common.colour.Colour
+import game.common.colour.Colour.*
 import factory.BoardFactory
-import validator.MovementValidator
+import game.common.validator.MovementValidator
 
 /**
  * @author Agustin Augurusa
  */
-class NotInCheckMovementValidator : MovementValidator{
+class NotInCheckMovementValidator : MovementValidator {
 
     val boardFactory = BoardFactory()
 

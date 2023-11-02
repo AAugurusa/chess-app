@@ -1,4 +1,4 @@
-package validator
+package game.common.validator
 
 import adt.ResultMovement
 import chessgame.game.state.GameState

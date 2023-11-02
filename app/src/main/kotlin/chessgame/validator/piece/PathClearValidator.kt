@@ -6,7 +6,7 @@ import adt.SuccessfulMovementResult
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import chessgame.movement.Position
-import validator.MovementValidator
+import game.common.validator.MovementValidator
 import kotlin.math.abs
 
 /**

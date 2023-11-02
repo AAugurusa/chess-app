@@ -1,15 +1,12 @@
 package chessgame.adapter
 
-import adt.InvalidMovementResult
-import adt.ResultMovement
-import adt.SuccessfulMovementResult
 import chessgame.game.board.Board
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import chessgame.movement.Position
 import chessgame.piece.Piece
 import edu.austral.dissis.chess.gui.*
-import enums.Colour
+import game.common.colour.Colour
 
 /**
  * @author Agustin Augurusa

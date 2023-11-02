@@ -1,8 +1,8 @@
 package chessgame.piece
 
 import chessgame.mover.MovementBehaviour
-import enums.Colour
-import validator.MovementValidator
+import game.common.colour.Colour
+import game.common.validator.MovementValidator
 
 /**
  * @author Agustin Augurusa

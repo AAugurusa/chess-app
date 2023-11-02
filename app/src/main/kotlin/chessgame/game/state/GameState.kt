@@ -7,7 +7,7 @@ import chessgame.game.turn.TurnStrategy
 import chessgame.movement.Movement
 import chessgame.movement.Position
 import chessgame.piece.Piece
-import enums.Colour
+import game.common.colour.Colour
 
 /**
  * @author Agustin Augurusa
@@ -61,7 +61,7 @@ data class GameState(val board: Board, val currColour: TurnStrategy, val history
         return history.boardHistory
     }
 
-    fun getCurrentColour(): Colour{
+    fun getCurrentColour(): Colour {
         return currColour.getCurrentColour()
     }
 
