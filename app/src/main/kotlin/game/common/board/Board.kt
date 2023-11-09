@@ -1,4 +1,4 @@
-package chessgame.game.board
+package game.common.board
 
 import chessgame.movement.Position
 import chessgame.piece.Piece

@@ -20,19 +20,19 @@ class NotInCheckMovementValidator : MovementValidator {
 
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
 
-        when(gameState.currColour){
+        when(gameState.getCurrentColour()){
             WHITE -> {
                 val designatedPosition = gameState.getPositionByPieceID("KW")!!
-                val auxNewGameState = gameState.copy(board = boardFactory.boardFromReference(gameState.board, movement), currColour = BLACK)
-                if(isPieceColourTargetingPosition(designatedPosition, auxNewGameState, BLACK)){
+                val auxNewGameState = gameState.copy(board = boardFactory.boardFromReference(gameState.board, movement), gameState.changeColourTurn())
+                if(!isPieceColourTargetingPosition(designatedPosition, auxNewGameState, BLACK)){
                     return SuccessfulMovementResult()
                 }
                 return InvalidMovementResult("King is left in check")
             }
             BLACK -> {
                 val designatedPosition = gameState.getPositionByPieceID("KB")!!
-                val auxNewGameState = gameState.copy(board = boardFactory.boardFromReference(gameState.board, movement), currColour = WHITE)
-                if(isPieceColourTargetingPosition(designatedPosition, gameState, WHITE)){
+                val auxNewGameState = gameState.copy(board = boardFactory.boardFromReference(gameState.board, movement), gameState.changeColourTurn()   )
+                if(!isPieceColourTargetingPosition(designatedPosition, gameState, WHITE)){
                     return SuccessfulMovementResult()
                 }
                 return InvalidMovementResult("King is left in check")
@@ -41,7 +41,7 @@ class NotInCheckMovementValidator : MovementValidator {
     }
 
     private fun isPieceColourTargetingPosition(targetPosition: Position, gameState: GameState, colour: Colour): Boolean{
-        val pieceFilter = gameState.getPieceMap().values.filter { it.colour == colour }
+        val pieceFilter = gameState.getPieceMap().values.filter { it.colour == colour && it.id != "KW" && it.id != "KB" }
         for(piece in pieceFilter){
             val originPostion = gameState.getPositionByPieceID(piece.id)!!
             if(piece.mv.validate(Movement(targetPosition, originPostion), gameState) is SuccessfulMovementResult){

@@ -1,4 +1,4 @@
-package chessgame.game.turn
+package game.common.turn
 
 import game.common.colour.Colour
 

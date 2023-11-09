@@ -67,18 +67,24 @@ class PathClearValidator() : MovementValidator {
     }
 
     private fun verticalPathMovementValidator(movement: Movement, gameState: GameState): ResultMovement {
-        val aux = abs(movement.from.row - movement.to.row)
-        for (i in 1 until aux) {
+        val fromRow = movement.from.row
+        val toRow = movement.to.row
+        val rowDifference = abs(fromRow - toRow)
+        val step = if (fromRow < toRow) 1 else -1 // Determina si el movimiento es hacia arriba o hacia abajo
+
+        for (i in 1 until rowDifference) {
             val intermediatePosition = Position(
                 movement.from.column,
-                movement.from.row + i,
+                fromRow + i * step
             )
+
             if (gameState.getPieceMap().contains(intermediatePosition)) {
-                return InvalidMovementResult("A intermediate position is blocked")
+                return InvalidMovementResult("An intermediate position is blocked")
             }
         }
         return SuccessfulMovementResult()
     }
+
 
 
 }

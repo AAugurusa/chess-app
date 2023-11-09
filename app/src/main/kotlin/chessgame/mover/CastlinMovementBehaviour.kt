@@ -4,6 +4,7 @@ import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import chessgame.movement.Position
 import game.common.colour.Colour.*
+import game.common.movement.MovementBehaviour
 
 /**
  * @author Agustin Augurusa

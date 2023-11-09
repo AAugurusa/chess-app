@@ -3,6 +3,7 @@ package chessgame.mover
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import factory.BoardFactory
+import game.common.movement.MovementBehaviour
 
 /**
  * @author Agustin Augurusa

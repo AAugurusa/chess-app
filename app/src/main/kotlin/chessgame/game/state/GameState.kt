@@ -2,11 +2,12 @@ package chessgame.game.state
 
 import adt.StateEvaluatorResult
 import adt.SuccessfulMovementResult
-import chessgame.game.board.Board
-import chessgame.game.turn.TurnStrategy
+import game.common.board.Board
+import game.common.turn.TurnStrategy
 import chessgame.movement.Movement
 import chessgame.movement.Position
 import chessgame.piece.Piece
+import game.common.board.History
 import game.common.colour.Colour
 
 /**
@@ -63,6 +64,10 @@ data class GameState(val board: Board, val currColour: TurnStrategy, val history
 
     fun getCurrentColour(): Colour {
         return currColour.getCurrentColour()
+    }
+
+    fun changeColourTurn() : TurnStrategy {
+        return currColour.advanceTurn()
     }
 
 }

@@ -1,7 +1,6 @@
-package chessgame.factory
+package game.common.board
 
 import chessgame.game.state.GameState
-import chessgame.game.state.History
 
 /**
  * @author Agustin Augurusa

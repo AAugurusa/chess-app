@@ -2,11 +2,12 @@ package chessgame.game.turn
 
 import game.common.colour.Colour
 import game.common.colour.Colour.*
+import game.common.turn.TurnStrategy
 
 /**
  * @author Agustin Augurusa
  */
-class RegularTurnStrategy(val colour: Colour) : TurnStrategy{
+class RegularTurnStrategy(val colour: Colour) : TurnStrategy {
     override fun advanceTurn(): TurnStrategy {
         when(colour){
             WHITE -> return RegularTurnStrategy(BLACK)

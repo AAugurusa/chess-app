@@ -6,6 +6,7 @@ import adt.SuccessfulMovementResult
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import chessgame.validator.basic.BasicMovementValidator
+import chessgame.validator.piece.NotInCheckMovementValidator
 import game.common.validator.MovementValidator
 
 /**

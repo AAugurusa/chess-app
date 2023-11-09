@@ -17,7 +17,7 @@ class MaxMovementCount(
 ) : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         val filteredList = filterDifferent(gameState.history.getPosById(pieceId))
-        if (filteredList.size < max) {
+        if (filteredList.size-1 < max) {
             return SuccessfulMovementResult()
         }
         return InvalidMovementResult("Piece reached max movement amount")

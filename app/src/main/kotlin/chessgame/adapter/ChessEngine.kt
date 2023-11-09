@@ -2,7 +2,7 @@ package chessgame.adapter
 
 import adt.*
 import chessgame.factory.GameStateFactory
-import chessgame.factory.HistoryUpdater
+import game.common.board.HistoryUpdater
 import chessgame.game.state.GameState
 import chessgame.game.state.NormalStateEvaluator
 import chessgame.movement.Movement
@@ -24,7 +24,7 @@ class ChessEngine {
     private val pieceMover : PieceMover = PieceMover()
     private val normalStateEvaluator : NormalStateEvaluator = NormalStateEvaluator()
     private val adapter = Adapter()
-    private var gameState = init()
+    private var gameState : GameState = init()
 
     fun init() : GameState{
         return gameStateFactory.normalGameStateBuilder()
@@ -35,8 +35,8 @@ class ChessEngine {
             val newGameState = historyUpdater.update(pieceMover.movePiece(move, gameState))
             when(stateEvaluatorResult()){
                 is InProgressStateResult -> {
-                    gameState = newGameState
-                    adapter.adaptGameState(gameState)
+                    gameState = newGameState.copy(currColour = newGameState.currColour.advanceTurn())
+                    return adapter.adaptGameState(gameState)
                 }
                 is TieStateResult -> return GameOver(adapter.adaptPieceColorToPlayerColor(Colour.WHITE))//EN VERDAD VER COMO PASARLE EL TIE
                 is WinStateResult -> return GameOver(adapter.adaptPieceColorToPlayerColor((stateEvaluatorResult() as WinStateResult).wonColour))

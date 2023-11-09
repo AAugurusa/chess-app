@@ -1,6 +1,6 @@
 package chessgame.adapter
 
-import chessgame.game.board.Board
+import game.common.board.Board
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import chessgame.movement.Position

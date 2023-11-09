@@ -2,7 +2,7 @@ package chessgame.factory
 
 import adt.InProgressStateResult
 import chessgame.game.state.GameState
-import chessgame.game.state.History
+import game.common.board.History
 import chessgame.game.turn.RegularTurnStrategy
 import game.common.colour.Colour
 import factory.BoardFactory

@@ -1,6 +1,6 @@
 package chessgame.piece
 
-import chessgame.mover.MovementBehaviour
+import game.common.movement.MovementBehaviour
 import game.common.colour.Colour
 import game.common.validator.MovementValidator
 

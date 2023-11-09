@@ -1,7 +1,7 @@
 package factory
 
 import chessgame.factory.PieceFactory
-import chessgame.game.board.Board
+import game.common.board.Board
 import chessgame.movement.Movement
 import game.common.colour.Colour
 import chessgame.movement.Position
@@ -115,5 +115,9 @@ class BoardFactory {
 
             )
         return Board(pieceMap, 8, 10)
+    }
+
+    fun initialiceNormalCheckersBoard(): Board{
+        TODO()
     }
 }
