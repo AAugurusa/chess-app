@@ -24,18 +24,26 @@ class NotInCheckMovementValidator : MovementValidator {
             WHITE -> {
                 val designatedPosition = gameState.getPositionByPieceID("KW")!!
                 val auxNewGameState = gameState.copy(board = boardFactory.boardFromReference(gameState.board, movement), gameState.changeColourTurn())
-                if(!isPieceColourTargetingPosition(designatedPosition, auxNewGameState, BLACK)){
-                    return SuccessfulMovementResult()
+                if(designatedPosition == movement.from) {
+                    if (isPieceColourTargetingPosition(movement.to, auxNewGameState, BLACK)) {
+                        return InvalidMovementResult("King is left in check")
+                    }
+                } else if (isPieceColourTargetingPosition(designatedPosition, auxNewGameState, BLACK)) {
+                    return InvalidMovementResult("King is left in check")
                 }
-                return InvalidMovementResult("King is left in check")
+                return SuccessfulMovementResult()
             }
             BLACK -> {
                 val designatedPosition = gameState.getPositionByPieceID("KB")!!
-                val auxNewGameState = gameState.copy(board = boardFactory.boardFromReference(gameState.board, movement), gameState.changeColourTurn()   )
-                if(!isPieceColourTargetingPosition(designatedPosition, gameState, WHITE)){
-                    return SuccessfulMovementResult()
+                val auxNewGameState = gameState.copy(board = boardFactory.boardFromReference(gameState.board, movement), gameState.changeColourTurn())
+                if(designatedPosition == movement.from) {
+                    if (isPieceColourTargetingPosition(movement.to, auxNewGameState, WHITE)) {
+                        return InvalidMovementResult("King is left in check")
+                    }
+                } else if (isPieceColourTargetingPosition(designatedPosition, auxNewGameState, WHITE)) {
+                    return InvalidMovementResult("King is left in check")
                 }
-                return InvalidMovementResult("King is left in check")
+                return SuccessfulMovementResult()
             }
         }
     }

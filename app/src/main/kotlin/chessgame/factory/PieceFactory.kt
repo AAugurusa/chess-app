@@ -44,8 +44,12 @@ class PieceFactory {
         return Piece(id, "PAWN", mv, colour, NormalMovementBehaviour())
     }
 
-    fun kingFactory(id: String, colour: Colour): Piece {//HACER
-        return Piece(id, "KING", InBoardValidator(), colour, NormalMovementBehaviour())
+    fun kingFactory(id: String, colour: Colour): Piece {
+        val horizontalMv = AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator(), LimitMovementValidator(1)))
+        val verticalMv = AndMovementValidator(listOf(VerticalMovementValidator(), PathClearValidator(), LimitMovementValidator(1)))
+        val diagonalMv = AndMovementValidator(listOf(DiagonalMovementValidator(), PathClearValidator(),LimitMovementValidator(1)))
+        val mv = OrMovementValidator(listOf(verticalMv, horizontalMv, diagonalMv))
+        return Piece(id, "KING", mv, colour, NormalMovementBehaviour())
     }
 
     fun bishopFactory(id: String, colour: Colour): Piece {
