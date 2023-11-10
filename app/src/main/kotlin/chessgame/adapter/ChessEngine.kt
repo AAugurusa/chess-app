@@ -11,6 +11,8 @@ import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.dissis.chess.gui.InvalidMove
 import edu.austral.dissis.chess.gui.MoveResult
 import game.common.colour.Colour
+import game.common.promotion.NormalPromotion
+import game.common.promotion.PromotionStrategy
 import validator.GameValidator
 
 /**
@@ -23,6 +25,7 @@ class ChessEngine {
     private val historyUpdater : HistoryUpdater = HistoryUpdater()
     private val pieceMover : PieceMover = PieceMover()
     private val normalStateEvaluator : NormalStateEvaluator = NormalStateEvaluator()
+    private val promoter : PromotionStrategy = NormalPromotion()
     private val adapter = Adapter()
     private var gameState : GameState = init()
 
@@ -32,7 +35,8 @@ class ChessEngine {
 
     fun makeAMove(move: Movement): MoveResult {
         if(isMovementSuccessful(move)){
-            val newGameState = historyUpdater.update(pieceMover.movePiece(move, gameState))
+            val afterMoveGs = historyUpdater.update(pieceMover.movePiece(move, gameState))
+            val newGameState = promoter.promote(afterMoveGs)
             when(stateEvaluatorResult(newGameState)){
                 is InProgressStateResult -> {
                     gameState = newGameState.copy(currColour = newGameState.currColour.advanceTurn())

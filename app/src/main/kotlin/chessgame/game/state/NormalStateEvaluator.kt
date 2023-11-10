@@ -73,40 +73,6 @@ class NormalStateEvaluator :
         return false
     }
 
-//    private fun isCheckMate(gameState: GameState): Boolean {
-//        val checkedColour = gameState.currColour.advanceTurn().getCurrentColour()
-//        val positionsOfThreats = gameState.positionsThatThreatenKing(checkedColour)
-//        val kingPosition = gameState.getPieceMap().entries.find { it.value.type == "KING" && it.value.colour == checkedColour }!!.key
-//        if (positionsOfThreats.isNotEmpty()) {
-//            val currColourPieces =
-//                gameState.getPieceMap().entries.filter { it.value.colour === checkedColour && it.value.type !== "KING" }
-//            for (piece in currColourPieces) {
-//                for (i in 1..gameState.board.numCol) {
-//                    for (j in 1..gameState.board.numRow) {
-//                        val toPosition = Position(i, j)
-//                        val fromPosition = piece.key
-//                        val auxMovement = Movement(toPosition, fromPosition)
-//                        if (piece.value.mv.validate(auxMovement, gameState = gameState) is SuccessfulMovementResult) {
-//                            val auxBoardFactory = BoardFactory()
-//                            val auxColourGameState = gameState.currColour.advanceTurn()
-//                            val auxGameState = GameState(
-//                                auxBoardFactory.boardFromReference(gameState.board, auxMovement),
-//                                auxColourGameState,
-//                                gameState.history,
-//                                gameState.state
-//                            )
-//                            if (auxGameState.positionsThatThreatenKing(checkedColour).isEmpty()) {
-//                                return false
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            return true
-//        }
-//        return false
-//    }
-
     private fun isCheckMate(gameState: GameState): Boolean {
         val newGameState = gameState.copy(currColour = gameState.currColour.advanceTurn())
         if(newGameState.isKingThreaten(newGameState.getCurrentColour())){
