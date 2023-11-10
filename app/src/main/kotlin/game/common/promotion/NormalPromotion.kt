@@ -10,35 +10,16 @@ import game.common.colour.Colour
  */
 class NormalPromotion : PromotionStrategy{
     override fun promote(gameState: GameState): GameState {
-        when(gameState.getCurrentColour()){
-            Colour.WHITE -> {
-                val pawns = gameState.getPieceMap().filter { it.value.colour == gameState.getCurrentColour() && it.value.type == "PAWN" }
-                val toRow = gameState.board.numRow
-                for ((position, piece) in pawns){
-                    val pawnPosition = position
-                    if (comparePositionsToRow(pawnPosition, toRow)){
-                        val auxPieceFactory = PieceFactory()
-                        val newQueen = auxPieceFactory.queenFactory(piece.id, Colour.WHITE)
-                        var newMutableMap = gameState.getPieceMap().toMutableMap()
-                        newMutableMap.replace(pawnPosition, newQueen)
-                        return gameState.copy(board = gameState.board.copy(pieceMap = newMutableMap))
-                    }
-                }
-            }
-            Colour.BLACK -> {
-                val pawns = gameState.getPieceMap().filter { it.value.colour == gameState.getCurrentColour() && it.value.type == "PAWN" }
-                val toRow = 1
-                for ((position, piece) in pawns){
-                    val pawnPosition = position
-                    if (comparePositionsToRow(pawnPosition, toRow)){
-                        val auxPieceFactory = PieceFactory()
-                        val newQueen = auxPieceFactory.queenFactory(piece.id, Colour.BLACK)
-                        var newMutableMap = gameState.getPieceMap().toMutableMap()
-                        newMutableMap.remove(pawnPosition)
-                        newMutableMap[pawnPosition] = newQueen
-                        return gameState.copy(board = gameState.board.copy(pieceMap = newMutableMap))
-                    }
-                }
+        val pawns = gameState.getPieceMap().filter { it.value.colour == gameState.getCurrentColour() && it.value.type == "PAWN" }
+        val toRow = if(gameState.getCurrentColour() == Colour.WHITE) gameState.board.numRow else 1
+        for ((position, piece) in pawns){
+            val pawnPosition = position
+            if (comparePositionsToRow(pawnPosition, toRow)){
+                val auxPieceFactory = PieceFactory()
+                val newQueen = auxPieceFactory.queenFactory(piece.id, gameState.getCurrentColour())
+                var newMutableMap = gameState.getPieceMap().toMutableMap()
+                newMutableMap.replace(pawnPosition, newQueen)
+                return gameState.copy(board = gameState.board.copy(pieceMap = newMutableMap))
             }
         }
         return gameState
