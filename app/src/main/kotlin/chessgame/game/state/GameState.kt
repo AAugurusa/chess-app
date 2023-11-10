@@ -7,13 +7,20 @@ import game.common.turn.TurnStrategy
 import chessgame.movement.Movement
 import chessgame.movement.Position
 import chessgame.piece.Piece
+import chessgame.validator.basic.BasicMovementValidator
 import game.common.board.History
 import game.common.colour.Colour
+import validator.GameValidator
 
 /**
  * @author Agustin Augurusa
  */
-data class GameState(val board: Board, val currColour: TurnStrategy, val history: History, val state: StateEvaluatorResult) {
+data class GameState(
+    val board: Board,
+    val currColour: TurnStrategy,
+    val history: History,
+    val state: StateEvaluatorResult
+) {
 
     fun getPieceMap(): Map<Position, Piece> {
         return board.pieceMap
@@ -28,14 +35,16 @@ data class GameState(val board: Board, val currColour: TurnStrategy, val history
     }
 
 
-    fun pieceHasAnyValidMovement(piece: Piece): Boolean{
+    fun pieceHasAnyValidMovement(piece: Piece): Boolean {
         val fromPosition = board.pieceMap.filterKeys { it == getPositionByPieceID(piece.id) }.keys.first()
-        for (i in 1.. board.numCol){
-            for (j in 1.. board.numRow){
-                val toPosition = Position(i,j)
-                val auxMovement = Movement(fromPosition, toPosition)
-                if (piece.mv.validate(auxMovement, gameState = this) is SuccessfulMovementResult){
-                    return true
+        for (i in 1..board.numCol) {
+            for (j in 1..board.numRow) {
+                val toPosition = Position(i, j)
+                val auxMovement = Movement(toPosition, fromPosition)
+                if (BasicMovementValidator().validate(auxMovement, gameState = this) is SuccessfulMovementResult) {
+                    if (piece.mv.validate(auxMovement, gameState = this) is SuccessfulMovementResult) {
+                        return true
+                    }
                 }
             }
         }
@@ -46,15 +55,23 @@ data class GameState(val board: Board, val currColour: TurnStrategy, val history
         var listOfPosition = mutableListOf<Position>()
         val kingPosition = board.pieceMap.entries.find { it.value.type == "KING" && it.value.colour == colour }!!.key
         val enemyPieces = board.pieceMap.entries.filter { it.value.colour !== colour }
-        for (enemyPiece in enemyPieces){
+        for (enemyPiece in enemyPieces) {
             val enemyPiecePosition = enemyPiece.key
             val enemyPieceMovement = Movement(kingPosition, enemyPiecePosition)
-            if (enemyPiece.value.mv.validate(enemyPieceMovement, gameState = this) is SuccessfulMovementResult){
+            if (enemyPiece.value.mv.validate(enemyPieceMovement, gameState = this) is SuccessfulMovementResult) {
                 listOfPosition.add(enemyPiecePosition)
             }
         }
         val immutableList = listOfPosition.toList()
         return immutableList
+    }
+
+    fun isKingThreaten(colour: Colour): Boolean {
+        return positionsThatThreatenKing(colour).isNotEmpty()
+    }
+
+    fun getAllPiecesOfColour(colour: Colour): List<Piece> {
+        return board.pieceMap.entries.filter { it.value.colour == colour }.map { it.value }
     }
 
 
@@ -66,7 +83,7 @@ data class GameState(val board: Board, val currColour: TurnStrategy, val history
         return currColour.getCurrentColour()
     }
 
-    fun changeColourTurn() : TurnStrategy {
+    fun changeColourTurn(): TurnStrategy {
         return currColour.advanceTurn()
     }
 

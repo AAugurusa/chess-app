@@ -10,22 +10,24 @@ import factory.BoardFactory
  * @author Agustin Augurusa
  */
 class NormalStateEvaluator :
-    StateEvaluator {//QUEDA ESPECIFICO DEL CLASIC SUBILO UN POCO MAS PARA DAMAS ---> PASARLE CONDICIONES
+    StateEvaluator {
 
     override fun validate(gameState: GameState): StateEvaluatorResult {
         if (isThereAWayOfMate(gameState)) {//SI NINGUNA SE CUMPLE SIGUE
             if (canAPieceMove(gameState)) {
                 if (isCheckMate(gameState)) {
                     when (gameState.getCurrentColour()) {
-                        Colour.WHITE -> return WinStateResult(Colour.BLACK)
-                        Colour.BLACK -> return WinStateResult(Colour.WHITE)
+                        Colour.BLACK -> return WinStateResult(Colour.BLACK)
+                        Colour.WHITE -> return WinStateResult(Colour.WHITE)
                     }
+                }else{
+                    return InProgressStateResult()
                 }
             }
             return TieStateResult("Stalemate")
         }
 
-        return InProgressStateResult()
+        return TieStateResult("Stalemate")
     }
 
     private fun isTherePieceType(gameState: GameState, pieceType: String): Boolean {
@@ -46,19 +48,19 @@ class NormalStateEvaluator :
         val whiteKnights = numberOfPieceTypeInColour(gameState, "KNIGHT", Colour.WHITE)
         val blackKnights = numberOfPieceTypeInColour(gameState, "KNIGHT", Colour.BLACK)
 
-        if (!(hasRook || hasPawn || hasQueen)) {
+        if ((hasRook || hasPawn || hasQueen)) {//si no hay esto anda a fijarte abajo
             return true
         }
 
         if (whiteBishops >= 2 || blackBishops >= 2) {
-            return false
+            return true
         }
 
         if ((whiteBishops >= 1 && whiteKnights >= 1) || (blackBishops >= 1 && blackKnights >= 1)) {
-            return false
+            return true
         }
 
-        return true
+        return false
     }
 
     private fun canAPieceMove(gameState: GameState): Boolean {
@@ -71,34 +73,59 @@ class NormalStateEvaluator :
         return false
     }
 
+//    private fun isCheckMate(gameState: GameState): Boolean {
+//        val checkedColour = gameState.currColour.advanceTurn().getCurrentColour()
+//        val positionsOfThreats = gameState.positionsThatThreatenKing(checkedColour)
+//        val kingPosition = gameState.getPieceMap().entries.find { it.value.type == "KING" && it.value.colour == checkedColour }!!.key
+//        if (positionsOfThreats.isNotEmpty()) {
+//            val currColourPieces =
+//                gameState.getPieceMap().entries.filter { it.value.colour === checkedColour && it.value.type !== "KING" }
+//            for (piece in currColourPieces) {
+//                for (i in 1..gameState.board.numCol) {
+//                    for (j in 1..gameState.board.numRow) {
+//                        val toPosition = Position(i, j)
+//                        val fromPosition = piece.key
+//                        val auxMovement = Movement(toPosition, fromPosition)
+//                        if (piece.value.mv.validate(auxMovement, gameState = gameState) is SuccessfulMovementResult) {
+//                            val auxBoardFactory = BoardFactory()
+//                            val auxColourGameState = gameState.currColour.advanceTurn()
+//                            val auxGameState = GameState(
+//                                auxBoardFactory.boardFromReference(gameState.board, auxMovement),
+//                                auxColourGameState,
+//                                gameState.history,
+//                                gameState.state
+//                            )
+//                            if (auxGameState.positionsThatThreatenKing(checkedColour).isEmpty()) {
+//                                return false
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            return true
+//        }
+//        return false
+//    }
+
     private fun isCheckMate(gameState: GameState): Boolean {
-        val positionsOfThreats = gameState.positionsThatThreatenKing(gameState.getCurrentColour())
-        if (positionsOfThreats.isNotEmpty()) {
-            val currColourPieces =
-                gameState.getPieceMap().entries.filter { it.value.colour === gameState.getCurrentColour() }
-            for (piece in currColourPieces) {
-                for (i in 1..gameState.board.numCol) {
-                    for (j in 1..gameState.board.numRow) {
-                        val toPosition = Position(i, j)
-                        val fromPosition = piece.key
-                        val auxMovement = Movement(toPosition, fromPosition)
-                        if (piece.value.mv.validate(auxMovement, gameState = gameState) is SuccessfulMovementResult) {
-                            val auxBoardFactory = BoardFactory()
-                            val auxGameState = GameState(
-                                auxBoardFactory.boardFromReference(gameState.board, auxMovement),
-                                gameState.currColour,
-                                gameState.history,
-                                gameState.state
-                            )
-                            if (auxGameState.positionsThatThreatenKing(gameState.getCurrentColour()).isEmpty()) {
-                                return false
-                            }
-                        }
-                    }
+        val newGameState = gameState.copy(currColour = gameState.currColour.advanceTurn())
+        if(newGameState.isKingThreaten(newGameState.getCurrentColour())){
+            val pieceList = newGameState.getPieceMap().entries.filter { it.value.colour === newGameState.getCurrentColour() }
+            for (piece in pieceList) {
+                if (newGameState.pieceHasAnyValidMovement(piece.value)) {
+                    return false
                 }
             }
+            return true
         }
-        return true
+        return false
+    }
+
+
+    private fun canMovementSaveKing(movement: Movement, gameState: GameState) : Boolean{
+        val auxBoardFactory = BoardFactory()
+        val movementMadeGs = gameState.copy(board = auxBoardFactory.boardFromReference(gameState.board, movement))
+        return movementMadeGs.isKingThreaten(movementMadeGs.getCurrentColour())
     }
 
 }

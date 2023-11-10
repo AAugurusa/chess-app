@@ -33,13 +33,13 @@ class ChessEngine {
     fun makeAMove(move: Movement): MoveResult {
         if(isMovementSuccessful(move)){
             val newGameState = historyUpdater.update(pieceMover.movePiece(move, gameState))
-            when(stateEvaluatorResult()){
+            when(stateEvaluatorResult(newGameState)){
                 is InProgressStateResult -> {
                     gameState = newGameState.copy(currColour = newGameState.currColour.advanceTurn())
                     return adapter.adaptGameState(gameState)
                 }
                 is TieStateResult -> return GameOver(adapter.adaptPieceColorToPlayerColor(Colour.WHITE))//EN VERDAD VER COMO PASARLE EL TIE
-                is WinStateResult -> return GameOver(adapter.adaptPieceColorToPlayerColor((stateEvaluatorResult() as WinStateResult).wonColour))
+                is WinStateResult -> return GameOver(adapter.adaptPieceColorToPlayerColor((stateEvaluatorResult(newGameState) as WinStateResult).wonColour))
             }
         }
         return InvalidMove(invalidMovementDescription(move))
@@ -49,8 +49,8 @@ class ChessEngine {
         return gameValidator.validate(move, gameState) is SuccessfulMovementResult
     }
 
-    private fun stateEvaluatorResult(): StateEvaluatorResult{
-        return normalStateEvaluator.validate(gameState)
+    private fun stateEvaluatorResult(gs: GameState): StateEvaluatorResult{
+        return normalStateEvaluator.validate(gs)
     }
 
     private fun invalidMovementDescription(move: Movement): String{
