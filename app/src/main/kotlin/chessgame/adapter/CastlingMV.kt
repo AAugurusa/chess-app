@@ -24,13 +24,13 @@ class CastlingMV() : MovementValidator {
             if (isShortCastlin(movement)) {
                 val rookPosition = Position(movement.to.column + 1, movement.to.row)
                 val extendedMove = Movement(movement.from, rookPosition)
-                if(isRookOfColourInPosition(rookPosition, gameState, 2) && isPathClear(extendedMove, gameState) && !(gameState.isPositionThreaten(kingNewPosition))){
+                if(isRookOfColourInPosition(rookPosition, gameState, 2) && isPathClear(extendedMove, gameState) && !(gameState.isPositionThreaten(kingNewPosition)) && rookHasNotMoved(movement, gameState)){
                     return SuccessfulMovementResult()
                 }
             }else{
                 val rookPosition = Position(movement.to.column - 2, movement.to.row)
                 val extendedMove = Movement(movement.from, rookPosition)
-                if(isRookOfColourInPosition(rookPosition, gameState, 1) && isPathClear(extendedMove, gameState) && !(gameState.isPositionThreaten(kingNewPosition))){
+                if(isRookOfColourInPosition(rookPosition, gameState, 1) && isPathClear(extendedMove, gameState) && !(gameState.isPositionThreaten(kingNewPosition)) && rookHasNotMoved(movement, gameState)){
                     return SuccessfulMovementResult()
                 }
             }
@@ -51,6 +51,22 @@ class CastlingMV() : MovementValidator {
             }
         }
         return false
+    }
+
+    private fun rookHasNotMoved(movement: Movement, gameState: GameState) : Boolean{
+        val num = if(isShortCastlin(movement)) {
+            2
+        }else{
+            1
+        }
+
+        val rookId = if(gameState.getCurrentColour() == Colour.WHITE){
+            "RW$num"
+        }else{
+            "RB$num"
+        }
+
+        return MaxMovementCount(1, rookId).validate(movement, gameState) is SuccessfulMovementResult
     }
 
     private fun kingHasNotMoved(movement : Movement,gameState: GameState): Boolean {
@@ -76,8 +92,11 @@ class CastlingMV() : MovementValidator {
         } else {
             "RB$side"
         }
-
-        return gameState.getPiece(position).id == idRook
+        if(!gameState.getPieceMap().containsKey(position)){
+            return false
+        }else{
+            return gameState.getPiece(position).id == idRook
+        }
     }
 
 
