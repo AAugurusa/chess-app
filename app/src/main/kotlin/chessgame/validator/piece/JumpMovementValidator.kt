@@ -11,14 +11,14 @@ import kotlin.math.abs
 /**
  * @author Agustin Augurusa
  */
-class LMovementValidator(
-    private val fstJump: Int,
-    private val sndJump: Int,
+class JumpMovementValidator(
+    private val x: Int,
+    private val y: Int,
 ) : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         val auxX = abs(movement.to.column - movement.from.column)
         val auxY = abs(movement.to.row - movement.from.row)
-        if ((auxX == fstJump && auxY == sndJump) || (auxX == sndJump && auxY == fstJump)) {
+        if ((auxX == x && auxY == y) || (auxX == y && auxY == x)) {
             return SuccessfulMovementResult()
         }
         return InvalidMovementResult("Piece is not moving correctly")

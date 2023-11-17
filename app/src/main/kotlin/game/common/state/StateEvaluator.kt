@@ -1,6 +1,7 @@
-package chessgame.game.state
+package game.common.state
 
 import adt.StateEvaluatorResult
+import chessgame.game.state.GameState
 
 /**
  * @author Agustin Augurusa

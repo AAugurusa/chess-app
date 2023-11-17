@@ -1,12 +1,12 @@
 package chessgame.factory
 
-import chessgame.mover.NormalMovementBehaviour
+import chessgame.adapter.CastlingMV
+import game.chess.mover.NormalMovementBehaviour
 import game.common.colour.Colour
 import chessgame.piece.Piece
-import chessgame.validator.basic.BasicMovementValidator
 import game.common.validator.logic.AndMovementValidator
 import chessgame.validator.piece.*
-import game.common.validator.basic.InBoardValidator
+import game.chess.mover.KingMovementBehaviour
 import game.common.validator.basic.ToPositionClearValidator
 import game.common.validator.logic.OrMovementValidator
 
@@ -48,8 +48,8 @@ class PieceFactory {
         val horizontalMv = AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator(), LimitMovementValidator(1)))
         val verticalMv = AndMovementValidator(listOf(VerticalMovementValidator(), PathClearValidator(), LimitMovementValidator(1)))
         val diagonalMv = AndMovementValidator(listOf(DiagonalMovementValidator(), PathClearValidator(),LimitMovementValidator(1)))
-        val mv = OrMovementValidator(listOf(verticalMv, horizontalMv, diagonalMv))
-        return Piece(id, "KING", mv, colour, NormalMovementBehaviour())
+        val mv = OrMovementValidator(listOf(verticalMv, horizontalMv, diagonalMv, CastlingMV()))
+        return Piece(id, "KING", mv, colour, KingMovementBehaviour())
     }
 
     fun bishopFactory(id: String, colour: Colour): Piece {
@@ -67,7 +67,7 @@ class PieceFactory {
     }
 
     fun knightFactory(id: String, colour: Colour): Piece {
-        return Piece(id, "KNIGHT", LMovementValidator(1, 2), colour, NormalMovementBehaviour())
+        return Piece(id, "KNIGHT", JumpMovementValidator(1, 2), colour, NormalMovementBehaviour())
     }
 
     //EXTRA PIECES:
@@ -75,7 +75,7 @@ class PieceFactory {
         val mv = OrMovementValidator(
             listOf(
                 AndMovementValidator(
-                    listOf(HorizontalMovementValidator(), PathClearValidator(), LMovementValidator(1, 2))
+                    listOf(HorizontalMovementValidator(), PathClearValidator(), JumpMovementValidator(1, 2))
                 )
             )
         )
@@ -86,7 +86,7 @@ class PieceFactory {
         val horizontalMv = AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator()))
         val verticalMv = AndMovementValidator(listOf(VerticalMovementValidator(), PathClearValidator()))
         val mv = OrMovementValidator(
-            listOf(verticalMv, horizontalMv, LMovementValidator(1, 2))
+            listOf(verticalMv, horizontalMv, JumpMovementValidator(1, 2))
         )
         return Piece(id, "CHANCELLOR", mv, colour, NormalMovementBehaviour())
     }

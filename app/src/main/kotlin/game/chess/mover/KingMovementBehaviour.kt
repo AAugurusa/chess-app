@@ -1,5 +1,7 @@
-package chessgame.mover
+package game.chess.mover
 
+import adt.SuccessfulMovementResult
+import chessgame.adapter.CastlingMV
 import chessgame.game.state.GameState
 import chessgame.movement.Movement
 import chessgame.movement.Position
@@ -9,13 +11,20 @@ import game.common.movement.MovementBehaviour
 /**
  * @author Agustin Augurusa
  */
-class CastlinMovementBehaviour : MovementBehaviour {
+class KingMovementBehaviour : MovementBehaviour {
     override fun move(gameState: GameState, movement: Movement): GameState {
-        val difAux = movement.to.column - movement.from.column
-        val king = gameState.getPiece(movement.from)
-        val newGameState = king.mb.move(gameState, movement)
+        return if (CastlingMV().validate(movement, gameState) is SuccessfulMovementResult){
+            castlingMovementBehaviour(gameState, movement)
+        }else{
+            NormalMovementBehaviour().move(gameState, movement)
+        }
+    }
 
-        if(difAux > 0){
+    private fun castlingMovementBehaviour(gameState: GameState, movement: Movement) : GameState{
+        val king = gameState.getPiece(movement.from)
+        val newGameState = NormalMovementBehaviour().move(gameState, movement)
+
+        if(isShortCastlin(movement)){
             when(gameState.getCurrentColour()){
                 WHITE -> {
                     val rook = gameState.getPiece(Position(gameState.board.numCol,1))
@@ -39,4 +48,9 @@ class CastlinMovementBehaviour : MovementBehaviour {
             }
         }
     }
+
+    private fun isShortCastlin(movement: Movement): Boolean {
+        return (movement.to.column - movement.from.column) > 0
+    }
+
 }

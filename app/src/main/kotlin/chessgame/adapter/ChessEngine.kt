@@ -11,7 +11,7 @@ import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.dissis.chess.gui.InvalidMove
 import edu.austral.dissis.chess.gui.MoveResult
 import game.common.colour.Colour
-import game.common.promotion.NormalPromotion
+import game.chess.promotion.NormalPromotion
 import game.common.promotion.PromotionStrategy
 import validator.GameValidator
 

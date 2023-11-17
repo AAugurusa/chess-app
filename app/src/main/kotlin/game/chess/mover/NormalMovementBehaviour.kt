@@ -1,4 +1,4 @@
-package chessgame.mover
+package game.chess.mover
 
 import chessgame.game.state.GameState
 import chessgame.movement.Movement

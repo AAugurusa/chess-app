@@ -2,9 +2,9 @@ package chessgame.game.state
 
 import adt.*
 import chessgame.movement.Movement
-import chessgame.movement.Position
 import game.common.colour.Colour
 import factory.BoardFactory
+import game.common.state.StateEvaluator
 
 /**
  * @author Agustin Augurusa

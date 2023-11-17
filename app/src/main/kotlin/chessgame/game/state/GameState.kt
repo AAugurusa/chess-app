@@ -74,6 +74,18 @@ data class GameState(
         return board.pieceMap.entries.filter { it.value.colour == colour }.map { it.value }
     }
 
+    fun isPositionThreaten(position: Position): Boolean{
+        val enemyPieces = board.pieceMap.entries.filter { it.value.colour !== getCurrentColour() && it.value.type != "KING"}
+        for (enemyPiece in enemyPieces) {
+            val enemyPiecePosition = enemyPiece.key
+            val enemyPieceMovement = Movement(position, enemyPiecePosition)
+            if (enemyPiece.value.mv.validate(enemyPieceMovement, gameState = this) is SuccessfulMovementResult) {
+                return true
+            }
+        }
+        return false
+    }
+
 
     fun getBoardsHistory(): List<Board> {
         return history.boardHistory

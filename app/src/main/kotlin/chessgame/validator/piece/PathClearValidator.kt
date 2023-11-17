@@ -18,7 +18,7 @@ class PathClearValidator() : MovementValidator {
     val horizontalMovementValidator = HorizontalMovementValidator()
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         if (diagonalMovementValidator.validate(movement, gameState) is SuccessfulMovementResult) {
-            return diagonalPathMovementValidator(movement, gameState)
+            return diagonalPathMovementValidator(movement.copy(), gameState)
         }
 
         if (horizontalMovementValidator.validate(movement, gameState) is SuccessfulMovementResult) {

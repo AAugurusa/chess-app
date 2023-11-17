@@ -1,14 +1,15 @@
-package game.common.promotion
+package game.chess.promotion
 
 import chessgame.factory.PieceFactory
 import chessgame.game.state.GameState
 import chessgame.movement.Position
 import game.common.colour.Colour
+import game.common.promotion.PromotionStrategy
 
 /**
  * @author Agustin Augurusa
  */
-class NormalPromotion : PromotionStrategy{
+class NormalPromotion : PromotionStrategy {
     override fun promote(gameState: GameState): GameState {
         val pawns = gameState.getPieceMap().filter { it.value.colour == gameState.getCurrentColour() && it.value.type == "PAWN" }
         val toRow = if(gameState.getCurrentColour() == Colour.WHITE) gameState.board.numRow else 1
