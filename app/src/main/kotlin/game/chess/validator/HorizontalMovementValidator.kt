@@ -1,4 +1,4 @@
-package game.common.validator.basic
+package game.chess.validator
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
@@ -10,11 +10,12 @@ import game.common.validator.MovementValidator
 /**
  * @author Agustin Augurusa
  */
-class InBoardValidator : MovementValidator {
+class HorizontalMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        if ((movement.from.column <= gameState.board.numCol) && (movement.from.row <= gameState.board.numRow) && (movement.to.column <= gameState.board.numCol) && (movement.to.row <= gameState.board.numRow)) {
+        if ((movement.from.column != movement.to.column) && (movement.from.row == movement.to.row)) {
             return SuccessfulMovementResult()
         }
-        return InvalidMovementResult("Movement out of bounds")
+        return InvalidMovementResult("Piece is not moving correctly")
     }
+
 }

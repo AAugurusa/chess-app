@@ -1,4 +1,4 @@
-package game.common.validator.basic
+package game.chess.validator
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
@@ -6,15 +6,20 @@ import adt.SuccessfulMovementResult
 import game.common.GameState
 import chessgame.movement.Movement
 import game.common.validator.MovementValidator
+import kotlin.math.abs
 
 /**
  * @author Agustin Augurusa
  */
-class InBoardValidator : MovementValidator {
+class LimitMovementValidator(
+    val limit: Int
+) : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        if ((movement.from.column <= gameState.board.numCol) && (movement.from.row <= gameState.board.numRow) && (movement.to.column <= gameState.board.numCol) && (movement.to.row <= gameState.board.numRow)) {
+        val difCol = abs(movement.to.column - movement.from.column)
+        val difRow = abs(movement.to.row - movement.from.row)
+        if(difCol <= limit &&  difRow <= limit){
             return SuccessfulMovementResult()
         }
-        return InvalidMovementResult("Movement out of bounds")
+        return InvalidMovementResult("The movement exceeds its limit")
     }
 }

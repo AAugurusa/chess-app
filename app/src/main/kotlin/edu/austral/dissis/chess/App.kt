@@ -3,7 +3,7 @@
  */
 package edu.austral.dissis.chess
 
-import chessgame.adapter.MyEngine
+import game.common.MyEngine
 import edu.austral.dissis.chess.gui.CachedImageResolver
 import edu.austral.dissis.chess.gui.DefaultImageResolver
 import edu.austral.dissis.chess.gui.GameView

@@ -1,8 +1,8 @@
 package game.chess.mover
 
 import adt.SuccessfulMovementResult
-import chessgame.adapter.CastlingMV
-import chessgame.game.state.GameState
+import game.chess.validator.CastlingMV
+import game.common.GameState
 import chessgame.movement.Movement
 import chessgame.movement.Position
 import game.common.colour.Colour.*
@@ -20,7 +20,7 @@ class KingMovementBehaviour : MovementBehaviour {
         }
     }
 
-    private fun castlingMovementBehaviour(gameState: GameState, movement: Movement) : GameState{
+    private fun castlingMovementBehaviour(gameState: GameState, movement: Movement) : GameState {
         val king = gameState.getPiece(movement.from)
         val newGameState = NormalMovementBehaviour().move(gameState, movement)
 

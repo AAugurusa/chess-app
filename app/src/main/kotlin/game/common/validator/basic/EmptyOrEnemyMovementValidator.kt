@@ -10,11 +10,17 @@ import game.common.validator.MovementValidator
 /**
  * @author Agustin Augurusa
  */
-class InBoardValidator : MovementValidator {
+class EmptyOrEnemyMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        if ((movement.from.column <= gameState.board.numCol) && (movement.from.row <= gameState.board.numRow) && (movement.to.column <= gameState.board.numCol) && (movement.to.row <= gameState.board.numRow)) {
+        if(!gameState.getPieceMap().containsKey(movement.to)){
             return SuccessfulMovementResult()
+        }else{
+            if(gameState.getPieceMap().get(movement.to)!!.colour != gameState.getCurrentColour()){
+                return SuccessfulMovementResult()
+            }else{
+                return InvalidMovementResult("To Position is occupied by a piece of the same colour")
+            }
         }
-        return InvalidMovementResult("Movement out of bounds")
     }
+
 }

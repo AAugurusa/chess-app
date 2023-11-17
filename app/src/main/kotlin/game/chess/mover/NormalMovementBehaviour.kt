@@ -1,8 +1,8 @@
 package game.chess.mover
 
-import chessgame.game.state.GameState
+import game.common.GameState
 import chessgame.movement.Movement
-import factory.BoardFactory
+import game.common.factory.BoardFactory
 import game.common.movement.MovementBehaviour
 
 /**

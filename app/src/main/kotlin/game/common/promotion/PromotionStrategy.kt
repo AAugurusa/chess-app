@@ -1,6 +1,6 @@
 package game.common.promotion
 
-import chessgame.game.state.GameState
+import game.common.GameState
 
 /**
  * @author Agustin Augurusa

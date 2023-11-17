@@ -1,4 +1,4 @@
-package game.common.validator.basic
+package game.chess.validator
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
@@ -10,11 +10,13 @@ import game.common.validator.MovementValidator
 /**
  * @author Agustin Augurusa
  */
-class ToPositionClearValidator : MovementValidator {
+class OtherColourMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         if (gameState.getPieceMap().containsKey(movement.to)) {
-            return InvalidMovementResult("The to position is occupied by a piece")
+            if (gameState.getPieceMap().get(movement.to)!!.colour != gameState.getCurrentColour()) {
+                return SuccessfulMovementResult()
+            }
         }
-        return SuccessfulMovementResult()
+        return InvalidMovementResult("The to position is not occupied by a piece of another colour")
     }
 }
