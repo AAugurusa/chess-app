@@ -5,14 +5,15 @@ import adt.ResultMovement
 import adt.SuccessfulMovementResult
 import game.common.GameState
 import chessgame.movement.Movement
+import game.checkers.validator.basic.BasicCheckersValidator
 import game.chess.validator.BasicChessMovementValidator
 import game.common.validator.MovementValidator
 
 /**
  * @author Agustin Augurusa
  */
-class GameValidator: MovementValidator {//Agarra los validadores de la pieza y valida el movimiento
-    val basicMv = BasicChessMovementValidator()
+class CheckersValidator: MovementValidator {//Agarra los validadores de la pieza y valida el movimiento
+    val basicMv = BasicCheckersValidator()
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         val basicResult = basicMv.validate(movement, gameState)
         when(basicResult){

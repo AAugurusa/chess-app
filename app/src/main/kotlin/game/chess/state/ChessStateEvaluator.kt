@@ -31,6 +31,16 @@ class ChessStateEvaluator :
         return TieStateResult("Stalemate")
     }
 
+    private fun canAPieceMove(gameState: GameState): Boolean {
+        val pieceList = gameState.getPieceMap().entries.filter { it.value.colour === gameState.getCurrentColour() }
+        for (piece in pieceList) {
+            if (gameState.chessPieceHasAnyValidMovement(piece.value)) {
+                return true
+            }
+        }
+        return false
+    }
+
     private fun isTherePieceType(gameState: GameState, pieceType: String): Boolean {
         return (gameState.getPieceMap().entries.filter { it.value.type === pieceType }.isNotEmpty())
     }
@@ -64,22 +74,13 @@ class ChessStateEvaluator :
         return false
     }
 
-    private fun canAPieceMove(gameState: GameState): Boolean {
-        val pieceList = gameState.getPieceMap().entries.filter { it.value.colour === gameState.getCurrentColour() }
-        for (piece in pieceList) {
-            if (gameState.pieceHasAnyValidMovement(piece.value)) {
-                return true
-            }
-        }
-        return false
-    }
 
     private fun isCheckMate(gameState: GameState): Boolean {
         val newGameState = gameState.copy(currColour = gameState.currColour.advanceTurn())
         if(newGameState.isKingThreaten(newGameState.getCurrentColour())){
             val pieceList = newGameState.getPieceMap().entries.filter { it.value.colour === newGameState.getCurrentColour() }
             for (piece in pieceList) {
-                if (newGameState.pieceHasAnyValidMovement(piece.value)) {
+                if (newGameState.chessPieceHasAnyValidMovement(piece.value)) {
                     return false
                 }
             }

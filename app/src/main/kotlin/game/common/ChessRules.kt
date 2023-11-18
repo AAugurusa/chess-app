@@ -12,14 +12,14 @@ import edu.austral.dissis.chess.gui.MoveResult
 import game.common.colour.Colour
 import game.chess.promotion.NormalPromotion
 import game.common.promotion.PromotionStrategy
-import game.common.turn.GameValidator
+import game.common.turn.ChessValidator
 
 /**
  * @author Agustin Augurusa
  */
-class ChessEngine {
+class ChessRules : Rules{
 
-    private val gameValidator : GameValidator = GameValidator()
+    private val gameValidator : ChessValidator = ChessValidator()
     private val gameStateFactory : GameStateFactory = GameStateFactory()
     private val historyUpdater : HistoryUpdater = HistoryUpdater()
     private val pieceMover : PieceMover = PieceMover()
@@ -28,11 +28,11 @@ class ChessEngine {
     private val adapter = Adapter()
     private var gameState : GameState = init()
 
-    fun init() : GameState {
+    override fun init() : GameState {
         return gameStateFactory.normalGameStateBuilder()
     }
 
-    fun makeAMove(move: Movement): MoveResult {
+    override fun makeAMove(move: Movement): MoveResult {
         if(isMovementSuccessful(move)){
             val afterMoveGs = historyUpdater.update(pieceMover.movePiece(move, gameState))
             val newGameState = promoter.promote(afterMoveGs)
@@ -60,7 +60,7 @@ class ChessEngine {
         return (gameValidator.validate(move, gameState) as InvalidMovementResult).reason
     }
 
-    fun getAdapter(): Adapter {
+    override fun getAdapter(): Adapter {
         return adapter
     }
 

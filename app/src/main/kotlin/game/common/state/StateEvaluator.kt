@@ -8,4 +8,5 @@ import game.common.GameState
  */
 interface StateEvaluator {
     fun validate(gameState: GameState): StateEvaluatorResult
+
 }

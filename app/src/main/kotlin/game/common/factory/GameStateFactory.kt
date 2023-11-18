@@ -14,4 +14,8 @@ class GameStateFactory {
         return GameState(BoardFactory().initialiceNormalBoard(), ChessTurnStrategy(Colour.WHITE), History(listOf()), InProgressStateResult())
     }
 
+    fun checkersStateBuilder(): GameState {
+        return GameState(BoardFactory().initialiceCheckersBoard(), ChessTurnStrategy(Colour.WHITE), History(listOf()), InProgressStateResult())
+    }
+
 }

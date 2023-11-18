@@ -11,7 +11,7 @@ import game.common.promotion.PromotionStrategy
  */
 class CheckersPromotion : PromotionStrategy {
     override fun promote(gameState: GameState): GameState {
-        val checkers = gameState.getPieceMap().filter { it.value.colour == gameState.getCurrentColour() && it.value.type == "CHECKER" }
+        val checkers = gameState.getPieceMap().filter { it.value.colour == gameState.getCurrentColour() && it.value.type == "PAWN" }
         val toRow = if(gameState.getCurrentColour() == Colour.WHITE) gameState.board.numRow else 1
         for ((position, piece) in checkers){
             val checkerPosition = position

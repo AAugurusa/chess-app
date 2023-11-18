@@ -1,4 +1,4 @@
-package game.chess.validator
+package game.common.validator.basic
 
 import adt.InvalidMovementResult
 import adt.ResultMovement

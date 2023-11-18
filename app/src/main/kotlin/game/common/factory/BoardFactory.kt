@@ -116,7 +116,35 @@ class BoardFactory {
         return Board(pieceMap, 8, 10)
     }
 
-    fun initialiceNormalCheckersBoard(): Board{
-        TODO()
+    fun initialiceCheckersBoard(): Board{
+        val pieceFactory = PieceFactory()
+        val pieceMap = mapOf(
+            (Position(1, 1) to pieceFactory.checkerFactory("CW1", Colour.WHITE)),
+            (Position(3, 1) to pieceFactory.checkerFactory("CW2", Colour.WHITE)),
+            (Position(5, 1) to pieceFactory.checkerFactory("CW3", Colour.WHITE)),
+            (Position(7, 1) to pieceFactory.checkerFactory("CW4", Colour.WHITE)),
+            (Position(2, 2) to pieceFactory.checkerFactory("CW5", Colour.WHITE)),
+            (Position(4, 2) to pieceFactory.checkerFactory("CW6", Colour.WHITE)),
+            (Position(6, 2) to pieceFactory.checkerFactory("CW7", Colour.WHITE)),
+            (Position(8, 2) to pieceFactory.checkerFactory("CW8", Colour.WHITE)),
+            (Position(1, 3) to pieceFactory.checkerFactory("CW9", Colour.WHITE)),
+            (Position(3, 3) to pieceFactory.checkerFactory("CW10", Colour.WHITE)),
+            (Position(5, 3) to pieceFactory.checkerFactory("CW11", Colour.WHITE)),
+            (Position(7, 3) to pieceFactory.checkerFactory("CW12", Colour.WHITE)),
+
+            (Position(2, 6) to pieceFactory.checkerFactory("CB1", Colour.BLACK)),
+            (Position(4, 6) to pieceFactory.checkerFactory("CB2", Colour.BLACK)),
+            (Position(6, 6) to pieceFactory.checkerFactory("CB3", Colour.BLACK)),
+            (Position(8, 6) to pieceFactory.checkerFactory("CB4", Colour.BLACK)),
+            (Position(1, 7) to pieceFactory.checkerFactory("CB5", Colour.BLACK)),
+            (Position(3, 7) to pieceFactory.checkerFactory("CB6", Colour.BLACK)),
+            (Position(5, 7) to pieceFactory.checkerFactory("CB7", Colour.BLACK)),
+            (Position(7, 7) to pieceFactory.checkerFactory("CB8", Colour.BLACK)),
+            (Position(2, 8) to pieceFactory.checkerFactory("CB9", Colour.BLACK)),
+            (Position(4, 8) to pieceFactory.checkerFactory("CB10", Colour.BLACK)),
+            (Position(6, 8) to pieceFactory.checkerFactory("CB11", Colour.BLACK)),
+            (Position(8, 8) to pieceFactory.checkerFactory("CB12", Colour.BLACK))
+        )
+        return Board(pieceMap, 8, 8)
     }
 }

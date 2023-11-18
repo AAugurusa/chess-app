@@ -3,11 +3,13 @@ package game.common.factory
 import game.chess.mover.NormalMovementBehaviour
 import game.common.colour.Colour
 import chessgame.piece.Piece
+import game.checkers.validator.basic.InBetweenEnemyValidator
 import game.common.validator.logic.AndMovementValidator
 import game.chess.mover.KingMovementBehaviour
 import game.chess.validator.*
 import game.common.validator.basic.DiagonalMovementValidator
 import game.common.validator.basic.FowardDiagonalMovementValidator
+import game.common.validator.basic.FowardMovementValidator
 import game.common.validator.basic.ToPositionClearValidator
 import game.common.validator.logic.OrMovementValidator
 
@@ -24,7 +26,13 @@ class PieceFactory {
     }
 
     fun pawnFactory(id: String, colour: Colour): Piece {
-        val normalMv = AndMovementValidator(listOf(FowardMovementValidator(), LimitMovementValidator(1), ToPositionClearValidator()))
+        val normalMv = AndMovementValidator(
+            listOf(
+                FowardMovementValidator(),
+                LimitMovementValidator(1),
+                ToPositionClearValidator()
+            )
+        )
         val firstMoveMv = AndMovementValidator(
             listOf(
                 FowardMovementValidator(),
@@ -46,12 +54,16 @@ class PieceFactory {
     }
 
     fun kingFactory(id: String, colour: Colour): Piece {
-        val horizontalMv = AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator(), LimitMovementValidator(1)))
-        val verticalMv = AndMovementValidator(listOf(VerticalMovementValidator(), PathClearValidator(), LimitMovementValidator(1)))
-        val diagonalMv = AndMovementValidator(listOf(
-            DiagonalMovementValidator(), PathClearValidator(),
-            LimitMovementValidator(1)
-        ))
+        val horizontalMv =
+            AndMovementValidator(listOf(HorizontalMovementValidator(), PathClearValidator(), LimitMovementValidator(1)))
+        val verticalMv =
+            AndMovementValidator(listOf(VerticalMovementValidator(), PathClearValidator(), LimitMovementValidator(1)))
+        val diagonalMv = AndMovementValidator(
+            listOf(
+                DiagonalMovementValidator(), PathClearValidator(),
+                LimitMovementValidator(1)
+            )
+        )
         val mv = OrMovementValidator(listOf(verticalMv, horizontalMv, diagonalMv, CastlingMV()))
         return Piece(id, "KING", mv, colour, KingMovementBehaviour())
     }
@@ -97,11 +109,47 @@ class PieceFactory {
 
 
     fun checkerFactory(id: String, colour: Colour): Piece {
-        TODO()
+        val normalDiagonalMv = AndMovementValidator(
+            listOf(
+                LimitMovementValidator(1),
+                ToPositionClearValidator(),
+                FowardDiagonalMovementValidator()
+            )
+        )
+
+        val eatDiagonalMv = AndMovementValidator(
+            listOf(
+                LimitMovementValidator(2),
+                InBetweenEnemyValidator(),
+                ToPositionClearValidator(),
+                FowardDiagonalMovementValidator()
+            )
+        )
+
+        val mv = OrMovementValidator(listOf(eatDiagonalMv, normalDiagonalMv))
+        return Piece(id, "PAWN", mv, colour, NormalMovementBehaviour())
     }
 
     fun crownedFactory(id: String, colour: Colour): Piece {
-        TODO()
+        val normalDiagonalMv = AndMovementValidator(
+            listOf(
+                DiagonalMovementValidator(),
+                LimitMovementValidator(1),
+                ToPositionClearValidator(),
+            )
+        )
+
+        val eatDiagonalMv = AndMovementValidator(
+            listOf(
+                DiagonalMovementValidator(),
+                LimitMovementValidator(2),
+                InBetweenEnemyValidator(),
+                ToPositionClearValidator(),
+            )
+        )
+
+        val mv = OrMovementValidator(listOf(eatDiagonalMv, normalDiagonalMv))
+        return Piece(id, "KING", mv, colour, NormalMovementBehaviour())
     }
 
 }

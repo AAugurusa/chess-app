@@ -7,6 +7,7 @@ import game.common.turn.TurnStrategy
 import chessgame.movement.Movement
 import chessgame.movement.Position
 import chessgame.piece.Piece
+import game.checkers.validator.basic.BasicCheckersValidator
 import game.chess.validator.BasicChessMovementValidator
 import game.common.history.History
 import game.common.colour.Colour
@@ -34,7 +35,7 @@ data class GameState(
     }
 
 
-    fun pieceHasAnyValidMovement(piece: Piece): Boolean {
+    fun chessPieceHasAnyValidMovement(piece: Piece): Boolean {
         val fromPosition = board.pieceMap.filterKeys { it == getPositionByPieceID(piece.id) }.keys.first()
         for (i in 1..board.numCol) {
             for (j in 1..board.numRow) {
@@ -49,6 +50,23 @@ data class GameState(
         }
         return false
     }
+
+    fun checkersPieceHasAnyValidMovement(piece: Piece): Boolean {
+        val fromPosition = board.pieceMap.filterKeys { it == getPositionByPieceID(piece.id) }.keys.first()
+        for (i in 1..board.numCol) {
+            for (j in 1..board.numRow) {
+                val toPosition = Position(i, j)
+                val auxMovement = Movement(toPosition, fromPosition)
+                if (BasicCheckersValidator().validate(auxMovement, gameState = this) is SuccessfulMovementResult) {
+                    if (piece.mv.validate(auxMovement, gameState = this) is SuccessfulMovementResult) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+
 
     fun positionsThatThreatenKing(colour: Colour): List<Position> {
         var listOfPosition = mutableListOf<Position>()
