@@ -47,7 +47,7 @@ class Adapter {
 
     fun adaptGameStateToInitialState(gameState: GameState) : InitialState {
         val board : Board = gameState.board
-        val boardSize = adaptBoardSize(board.numCol, board.numCol)
+        val boardSize = adaptBoardSize(board.numRow, board.numCol)
         val chessPieces = adaptPiecesToChessPieces(board)
         val playerColor = adaptPieceColorToPlayerColor(gameState.getCurrentColour())
         return InitialState(boardSize, chessPieces, playerColor)

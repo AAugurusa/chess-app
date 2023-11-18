@@ -18,4 +18,8 @@ class GameStateFactory {
         return GameState(BoardFactory().initialiceCheckersBoard(), ChessTurnStrategy(Colour.WHITE), History(listOf()), InProgressStateResult())
     }
 
+    fun capaBlancaStateBuilder(): GameState {
+        return GameState(BoardFactory().initialiceCapaBlancaBoard(), ChessTurnStrategy(Colour.WHITE), History(listOf()), InProgressStateResult())
+    }
+
 }

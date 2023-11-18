@@ -69,8 +69,8 @@ class BoardFactory {
             (Position(2, 1) to pieceFactory.knightFactory("KW1", Colour.WHITE)),
             (Position(3, 1) to pieceFactory.archbishopFactory("AW", Colour.WHITE)),
             (Position(4, 1) to pieceFactory.bishopFactory("BW", Colour.WHITE)),
-            (Position(5, 1) to pieceFactory.queenFactory("QB", Colour.WHITE)),
-            (Position(6, 1) to pieceFactory.kingFactory("KB", Colour.WHITE)),
+            (Position(5, 1) to pieceFactory.queenFactory("QW", Colour.WHITE)),
+            (Position(6, 1) to pieceFactory.kingFactory("KW", Colour.WHITE)),
             (Position(7, 1) to pieceFactory.bishopFactory("BW2", Colour.WHITE)),
             (Position(8, 1) to pieceFactory.chancellorFactory("CW", Colour.WHITE)),
             (Position(9, 1) to pieceFactory.knightFactory("KW2", Colour.WHITE)),
@@ -85,8 +85,8 @@ class BoardFactory {
             (Position(6, 2) to pieceFactory.pawnFactory("PW6", Colour.WHITE)),
             (Position(7, 2) to pieceFactory.pawnFactory("PW7", Colour.WHITE)),
             (Position(8, 2) to pieceFactory.pawnFactory("PW8", Colour.WHITE)),
-            (Position(9, 2) to pieceFactory.pawnFactory("PW8", Colour.WHITE)),
-            (Position(10, 2) to pieceFactory.pawnFactory("PW8", Colour.WHITE)),
+            (Position(9, 2) to pieceFactory.pawnFactory("PW9", Colour.WHITE)),
+            (Position(10, 2) to pieceFactory.pawnFactory("PW10", Colour.WHITE)),
 
 
             (Position(1, 7) to pieceFactory.pawnFactory("PB1", Colour.BLACK)),
@@ -97,8 +97,8 @@ class BoardFactory {
             (Position(6, 7) to pieceFactory.pawnFactory("PB6", Colour.BLACK)),
             (Position(7, 7) to pieceFactory.pawnFactory("PB7", Colour.BLACK)),
             (Position(8, 7) to pieceFactory.pawnFactory("PB8", Colour.BLACK)),
-            (Position(9, 7) to pieceFactory.pawnFactory("PB8", Colour.BLACK)),
-            (Position(10, 7) to pieceFactory.pawnFactory("PB8", Colour.BLACK)),
+            (Position(9, 7) to pieceFactory.pawnFactory("PB9", Colour.BLACK)),
+            (Position(10, 7) to pieceFactory.pawnFactory("PB10", Colour.BLACK)),
 
 
             (Position(1, 8) to pieceFactory.rookFactory("RB1", Colour.BLACK)),

@@ -17,6 +17,10 @@ class MyEngine(rules: Rules) : GameEngine {
         fun checkersEngine() : MyEngine{
             return MyEngine(CheckersRules())
         }
+
+        fun capaBlancaEngine() : MyEngine{
+            return MyEngine(CapaBlancaRules())
+        }
     }
 
     override fun applyMove(move: Move): MoveResult {

@@ -91,8 +91,9 @@ class PieceFactory {
         val mv = OrMovementValidator(
             listOf(
                 AndMovementValidator(
-                    listOf(HorizontalMovementValidator(), PathClearValidator(), JumpMovementValidator(1, 2))
+                    listOf(DiagonalMovementValidator(), PathClearValidator())
                 )
+                , JumpMovementValidator(1, 2)
             )
         )
         return Piece(id, "ARCHBISHOP", mv, colour, NormalMovementBehaviour())
