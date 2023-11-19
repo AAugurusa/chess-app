@@ -55,7 +55,11 @@ class CheckerMovementBehaviour : MovementBehaviour {
     }
 
     private fun applyEatMovement(movement: Movement, gameState: GameState): GameState {
-        val newGameState = NormalMovementBehaviour().move(gameState, movement)
+        var newGameState = NormalMovementBehaviour().move(gameState, movement)
+        val newPossibleMovement = canPieceStillEat(newGameState, newGameState.getPiece(movement.to))
+        if(basicCheckersValidator.validate(newPossibleMovement, newGameState) is SuccessfulMovementResult){
+            newGameState = applyEatMovement(newPossibleMovement, newGameState)
+        }
         val auxX = (movement.to.column - movement.from.column)
         val auxY = (movement.to.row - movement.from.row)
 
