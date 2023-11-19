@@ -3,6 +3,8 @@ package game.common.factory
 import game.chess.mover.NormalMovementBehaviour
 import game.common.colour.Colour
 import chessgame.piece.Piece
+import game.checkers.mover.CheckerMovementBehaviour
+import game.checkers.mover.CrownedMovementBehaviour
 import game.checkers.validator.basic.InBetweenEnemyValidator
 import game.common.validator.logic.AndMovementValidator
 import game.chess.mover.KingMovementBehaviour
@@ -128,7 +130,7 @@ class PieceFactory {
         )
 
         val mv = OrMovementValidator(listOf(eatDiagonalMv, normalDiagonalMv))
-        return Piece(id, "PAWN", mv, colour, NormalMovementBehaviour())
+        return Piece(id, "PAWN", mv, colour, CheckerMovementBehaviour())
     }
 
     fun crownedFactory(id: String, colour: Colour): Piece {
@@ -150,7 +152,7 @@ class PieceFactory {
         )
 
         val mv = OrMovementValidator(listOf(eatDiagonalMv, normalDiagonalMv))
-        return Piece(id, "KING", mv, colour, NormalMovementBehaviour())
+        return Piece(id, "KING", mv, colour, CrownedMovementBehaviour())
     }
 
 }

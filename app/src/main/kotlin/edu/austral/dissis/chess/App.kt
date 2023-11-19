@@ -21,7 +21,7 @@ fun main() {
 }
 
 class ChessGameApplication : Application() {
-    private val gameEngine = MyEngine(CapaBlancaRules())
+    private val gameEngine = MyEngine(CheckersRules())
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
 
     companion object {

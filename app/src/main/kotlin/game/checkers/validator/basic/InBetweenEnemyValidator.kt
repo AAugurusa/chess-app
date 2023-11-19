@@ -27,7 +27,11 @@ class InBetweenEnemyValidator : MovementValidator {
             )
 
             if (gameState.getPieceMap().containsKey(intermediatePosition)) {
-                return SuccessfulMovementResult()
+                if(gameState.getPieceMap()[intermediatePosition]!!.colour == gameState.getNextColour()){
+                    return SuccessfulMovementResult()
+                }else{
+                    return InvalidMovementResult("Piece is not moving correctly")
+                }
             }
         }
 

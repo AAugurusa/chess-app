@@ -116,4 +116,8 @@ data class GameState(
         return currColour.advanceTurn()
     }
 
+    fun getNextColour(): Colour {
+        return currColour.advanceTurn().getCurrentColour()
+    }
+
 }
