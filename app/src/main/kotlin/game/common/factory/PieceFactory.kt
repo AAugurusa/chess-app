@@ -6,6 +6,7 @@ import chessgame.piece.Piece
 import game.checkers.mover.CheckerMovementBehaviour
 import game.checkers.mover.CrownedMovementBehaviour
 import game.checkers.validator.basic.InBetweenEnemyValidator
+import game.checkers.validator.basic.NotObligatedToEatValidator
 import game.common.validator.logic.AndMovementValidator
 import game.chess.mover.KingMovementBehaviour
 import game.chess.validator.*
@@ -116,7 +117,8 @@ class PieceFactory {
             listOf(
                 LimitMovementValidator(1),
                 ToPositionClearValidator(),
-                FowardDiagonalMovementValidator()
+                FowardDiagonalMovementValidator(),
+                NotObligatedToEatValidator()
             )
         )
 

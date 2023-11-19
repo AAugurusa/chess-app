@@ -6,6 +6,7 @@ import chessgame.movement.Position
 import chessgame.piece.Piece
 import game.checkers.validator.basic.BasicCheckersValidator
 import game.checkers.validator.basic.InBetweenEnemyValidator
+import game.checkers.validator.basic.NotObligatedToEatValidator
 import game.chess.mover.NormalMovementBehaviour
 import game.chess.validator.LimitMovementValidator
 import game.common.GameState
@@ -24,7 +25,8 @@ class CheckerMovementBehaviour : MovementBehaviour {
         listOf(
             LimitMovementValidator(1),
             ToPositionClearValidator(),
-            FowardDiagonalMovementValidator()
+            FowardDiagonalMovementValidator(),
+            NotObligatedToEatValidator()
         )
     )
 
