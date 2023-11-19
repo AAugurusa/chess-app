@@ -8,6 +8,7 @@ import chessgame.movement.Position
 import game.chess.validator.LimitMovementValidator
 import game.common.GameState
 import game.common.validator.MovementValidator
+import game.common.validator.basic.DiagonalMovementValidator
 import game.common.validator.basic.FowardDiagonalMovementValidator
 import game.common.validator.basic.ToPositionClearValidator
 import game.common.validator.logic.AndMovementValidator
@@ -30,7 +31,7 @@ class NotObligatedToEatValidator : MovementValidator {
             LimitMovementValidator(2),
             InBetweenEnemyValidator(),
             ToPositionClearValidator(),
-            FowardDiagonalMovementValidator()
+            DiagonalMovementValidator()
         )
     )
 
@@ -38,18 +39,17 @@ class NotObligatedToEatValidator : MovementValidator {
 
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
         val pieceList = gameState.getPieceMap().filter { it.value.colour == gameState.getCurrentColour() }
-        for (piece in pieceList){
-            val piecePosition = piece.key
+        for ((piecePosition, piece) in pieceList) {
             for (i in 1..gameState.board.numCol) {
                 for (j in 1..gameState.board.numRow) {
                     val toPosition = Position(i, j)
                     val newMovement = Movement(toPosition, piecePosition)
-                    if (basicCheckersValidator.validate(newMovement, gameState) is SuccessfulMovementResult){
-                        if(piece.value.type == "PAWN") {
+                    if (basicCheckersValidator.validate(newMovement, gameState) is SuccessfulMovementResult) {
+                        if (piece.type == "PAWN") {
                             if (eatDiagonalMvChecker.validate(newMovement, gameState) is SuccessfulMovementResult) {
                                 return InvalidMovementResult("You have to eat")
                             }
-                        }else{
+                        } else {
                             if (eatDiagonalMvCrowned.validate(newMovement, gameState) is SuccessfulMovementResult) {
                                 return InvalidMovementResult("You have to eat")
                             }
