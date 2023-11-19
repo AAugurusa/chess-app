@@ -23,6 +23,8 @@ class CrownedMovementBehaviour : MovementBehaviour{
         )
     )
 
+
+
     override fun move(gameState: GameState, movement: Movement): GameState {
         if (isAnNormalMovement(movement, gameState)) {
             return NormalMovementBehaviour().move(gameState, movement)

@@ -1,9 +1,10 @@
 package game.checkers.mover
 
-import adt.InvalidMovementResult
 import adt.SuccessfulMovementResult
 import chessgame.movement.Movement
 import chessgame.movement.Position
+import chessgame.piece.Piece
+import game.checkers.validator.basic.BasicCheckersValidator
 import game.checkers.validator.basic.InBetweenEnemyValidator
 import game.chess.mover.NormalMovementBehaviour
 import game.chess.validator.LimitMovementValidator
@@ -27,6 +28,17 @@ class CheckerMovementBehaviour : MovementBehaviour {
         )
     )
 
+    private val basicCheckersValidator = BasicCheckersValidator()
+
+    val eatDiagonalMv = AndMovementValidator(
+        listOf(
+            LimitMovementValidator(2),
+            InBetweenEnemyValidator(),
+            ToPositionClearValidator(),
+            FowardDiagonalMovementValidator()
+        )
+    )
+
     override fun move(gameState: GameState, movement: Movement): GameState {
         if (isAnNormalMovement(movement, gameState)) {
             return NormalMovementBehaviour().move(gameState, movement)
@@ -36,6 +48,10 @@ class CheckerMovementBehaviour : MovementBehaviour {
 
     private fun isAnNormalMovement(movement: Movement, gameState: GameState): Boolean {
         return (normalDiagonalMv.validate(movement, gameState) is SuccessfulMovementResult)
+    }
+
+    private fun isAnEatMovement(movement: Movement, gameState: GameState): Boolean {
+        return (eatDiagonalMv.validate(movement, gameState) is SuccessfulMovementResult)
     }
 
     private fun applyEatMovement(movement: Movement, gameState: GameState): GameState {
@@ -53,8 +69,26 @@ class CheckerMovementBehaviour : MovementBehaviour {
 
         var newPieceMap = newGameState.getPieceMap().toMutableMap()
         newPieceMap.remove(intermediatePosition)
+        val inmutableGameState = newGameState.copy(board = newGameState.board.copy(pieceMap = newPieceMap.toMap()))
 
-        return newGameState.copy(board = newGameState.board.copy(pieceMap = newPieceMap.toMap()))
+        return inmutableGameState
+    }
+
+    private fun canPieceStillEat(gameState: GameState, actualPiece : Piece): Movement{
+        val piecePosition = gameState.getPositionByPieceID(actualPiece.id)!!
+        for (i in 1..gameState.board.numCol) {
+            for (j in 1..gameState.board.numRow) {
+                val toPosition = Position(i, j)
+                val movement = Movement(toPosition, piecePosition)
+                if(actualPiece.mv.validate(movement, gameState) is SuccessfulMovementResult){
+                    if (isAnEatMovement(movement, gameState)) {
+                        return movement
+                    }
+                }
+            }
+        }
+        val outOfBoundPosition = Position(-1, -1)
+        return Movement(outOfBoundPosition, outOfBoundPosition)
     }
 
 }

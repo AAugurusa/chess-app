@@ -14,4 +14,8 @@ class CheckersTurnStrategy : TurnStrategy {
     override fun getCurrentColour(): Colour {
         TODO("Not yet implemented")
     }
+
+    private fun canAPieceEat(): Boolean {
+        return false
+    }
 }
