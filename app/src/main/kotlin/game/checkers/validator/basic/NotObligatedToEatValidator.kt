@@ -16,7 +16,16 @@ import game.common.validator.logic.AndMovementValidator
  * @author Agustin Augurusa
  */
 class NotObligatedToEatValidator : MovementValidator {
-    private val eatDiagonalMv = AndMovementValidator(
+    private val eatDiagonalMvChecker = AndMovementValidator(
+        listOf(
+            LimitMovementValidator(2),
+            InBetweenEnemyValidator(),
+            ToPositionClearValidator(),
+            FowardDiagonalMovementValidator()
+        )
+    )
+
+    private val eatDiagonalMvCrowned = AndMovementValidator(
         listOf(
             LimitMovementValidator(2),
             InBetweenEnemyValidator(),
@@ -36,8 +45,14 @@ class NotObligatedToEatValidator : MovementValidator {
                     val toPosition = Position(i, j)
                     val newMovement = Movement(toPosition, piecePosition)
                     if (basicCheckersValidator.validate(newMovement, gameState) is SuccessfulMovementResult){
-                        if(eatDiagonalMv.validate(newMovement, gameState) is SuccessfulMovementResult){
-                            return InvalidMovementResult("You have to eat")
+                        if(piece.value.type == "PAWN") {
+                            if (eatDiagonalMvChecker.validate(newMovement, gameState) is SuccessfulMovementResult) {
+                                return InvalidMovementResult("You have to eat")
+                            }
+                        }else{
+                            if (eatDiagonalMvCrowned.validate(newMovement, gameState) is SuccessfulMovementResult) {
+                                return InvalidMovementResult("You have to eat")
+                            }
                         }
                     }
                 }

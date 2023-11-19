@@ -141,6 +141,7 @@ class PieceFactory {
                 DiagonalMovementValidator(),
                 LimitMovementValidator(1),
                 ToPositionClearValidator(),
+                NotObligatedToEatValidator()
             )
         )
 

@@ -32,7 +32,7 @@ class CheckerMovementBehaviour : MovementBehaviour {
 
     private val basicCheckersValidator = BasicCheckersValidator()
 
-    val eatDiagonalMv = AndMovementValidator(
+    private val eatDiagonalMv = AndMovementValidator(
         listOf(
             LimitMovementValidator(2),
             InBetweenEnemyValidator(),
