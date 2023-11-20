@@ -1,23 +1,26 @@
-package game.common
+package game.chess
 
 import adt.*
+import game.common.factory.GameStateFactory
+import game.common.history.HistoryUpdater
+import game.chess.state.ChessStateEvaluator
 import chessgame.movement.Movement
 import chessgame.movement.PieceMover
 import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.dissis.chess.gui.InvalidMove
 import edu.austral.dissis.chess.gui.MoveResult
-import game.chess.promotion.NormalPromotion
-import game.chess.state.ChessStateEvaluator
 import game.common.colour.Colour
-import game.common.factory.GameStateFactory
-import game.common.history.HistoryUpdater
+import game.chess.promotion.NormalPromotion
+import game.common.Adapter
+import game.common.GameState
+import game.common.Rules
 import game.common.promotion.PromotionStrategy
 import game.common.turn.ChessValidator
 
 /**
  * @author Agustin Augurusa
  */
-class CapaBlancaRules : Rules{
+class ChessRules : Rules {
 
     private val gameValidator : ChessValidator = ChessValidator()
     private val gameStateFactory : GameStateFactory = GameStateFactory()
@@ -29,7 +32,7 @@ class CapaBlancaRules : Rules{
     private var gameState : GameState = init()
 
     override fun init() : GameState {
-        return gameStateFactory.capaBlancaStateBuilder()
+        return gameStateFactory.normalGameStateBuilder()
     }
 
     override fun makeAMove(move: Movement): MoveResult {
@@ -52,7 +55,7 @@ class CapaBlancaRules : Rules{
         return gameValidator.validate(move, gameState) is SuccessfulMovementResult
     }
 
-    private fun stateEvaluatorResult(gs: GameState): StateEvaluatorResult {
+    private fun stateEvaluatorResult(gs: GameState): StateEvaluatorResult{
         return chessStateEvaluator.validate(gs)
     }
 

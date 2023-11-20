@@ -1,35 +1,37 @@
-package game.common
+package game.checkers
 
 import adt.*
 import game.common.factory.GameStateFactory
 import game.common.history.HistoryUpdater
-import game.chess.state.ChessStateEvaluator
 import chessgame.movement.Movement
 import chessgame.movement.PieceMover
 import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.dissis.chess.gui.InvalidMove
 import edu.austral.dissis.chess.gui.MoveResult
+import game.checkers.promotion.CheckersPromotion
+import game.checkers.state.CheckersStateEvaluator
+import game.common.Adapter
+import game.common.GameState
+import game.common.Rules
 import game.common.colour.Colour
-import game.chess.promotion.NormalPromotion
-import game.common.promotion.PromotionStrategy
-import game.common.turn.ChessValidator
+import game.common.turn.CheckersValidator
 
 /**
  * @author Agustin Augurusa
  */
-class ChessRules : Rules{
+class CheckersRules : Rules {
 
-    private val gameValidator : ChessValidator = ChessValidator()
+    private val gameValidator : CheckersValidator = CheckersValidator()
     private val gameStateFactory : GameStateFactory = GameStateFactory()
     private val historyUpdater : HistoryUpdater = HistoryUpdater()
     private val pieceMover : PieceMover = PieceMover()
-    private val chessStateEvaluator : ChessStateEvaluator = ChessStateEvaluator()
-    private val promoter : PromotionStrategy = NormalPromotion()
+    private val checkersStateEvaluator : CheckersStateEvaluator = CheckersStateEvaluator()
+    private val promoter : CheckersPromotion = CheckersPromotion()
     private val adapter = Adapter()
     private var gameState : GameState = init()
 
     override fun init() : GameState {
-        return gameStateFactory.normalGameStateBuilder()
+        return gameStateFactory.checkersStateBuilder()
     }
 
     override fun makeAMove(move: Movement): MoveResult {
@@ -53,7 +55,7 @@ class ChessRules : Rules{
     }
 
     private fun stateEvaluatorResult(gs: GameState): StateEvaluatorResult{
-        return chessStateEvaluator.validate(gs)
+        return checkersStateEvaluator.validate(gs)
     }
 
     private fun invalidMovementDescription(move: Movement): String{

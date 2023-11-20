@@ -1,35 +1,38 @@
-package game.common
+package game.chess
 
 import adt.*
-import game.common.factory.GameStateFactory
-import game.common.history.HistoryUpdater
 import chessgame.movement.Movement
 import chessgame.movement.PieceMover
 import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.dissis.chess.gui.InvalidMove
 import edu.austral.dissis.chess.gui.MoveResult
-import game.checkers.promotion.CheckersPromotion
-import game.checkers.state.CheckersStateEvaluator
+import game.chess.promotion.NormalPromotion
+import game.chess.state.ChessStateEvaluator
+import game.common.Adapter
+import game.common.GameState
+import game.common.Rules
 import game.common.colour.Colour
-import game.common.turn.CheckersValidator
+import game.common.factory.GameStateFactory
+import game.common.history.HistoryUpdater
+import game.common.promotion.PromotionStrategy
 import game.common.turn.ChessValidator
 
 /**
  * @author Agustin Augurusa
  */
-class CheckersRules : Rules{
+class CapaBlancaRules : Rules {
 
-    private val gameValidator : CheckersValidator = CheckersValidator()
+    private val gameValidator : ChessValidator = ChessValidator()
     private val gameStateFactory : GameStateFactory = GameStateFactory()
     private val historyUpdater : HistoryUpdater = HistoryUpdater()
     private val pieceMover : PieceMover = PieceMover()
-    private val checkersStateEvaluator : CheckersStateEvaluator = CheckersStateEvaluator()
-    private val promoter : CheckersPromotion = CheckersPromotion()
+    private val chessStateEvaluator : ChessStateEvaluator = ChessStateEvaluator()
+    private val promoter : PromotionStrategy = NormalPromotion()
     private val adapter = Adapter()
     private var gameState : GameState = init()
 
     override fun init() : GameState {
-        return gameStateFactory.checkersStateBuilder()
+        return gameStateFactory.capaBlancaStateBuilder()
     }
 
     override fun makeAMove(move: Movement): MoveResult {
@@ -52,8 +55,8 @@ class CheckersRules : Rules{
         return gameValidator.validate(move, gameState) is SuccessfulMovementResult
     }
 
-    private fun stateEvaluatorResult(gs: GameState): StateEvaluatorResult{
-        return checkersStateEvaluator.validate(gs)
+    private fun stateEvaluatorResult(gs: GameState): StateEvaluatorResult {
+        return chessStateEvaluator.validate(gs)
     }
 
     private fun invalidMovementDescription(move: Movement): String{

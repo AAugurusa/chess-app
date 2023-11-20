@@ -2,6 +2,9 @@ package game.common
 
 import chessgame.movement.Movement
 import edu.austral.dissis.chess.gui.*
+import game.checkers.CheckersRules
+import game.chess.CapaBlancaRules
+import game.chess.ChessRules
 
 /**
  * @author Agustin Augurusa
