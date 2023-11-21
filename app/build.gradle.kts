@@ -27,6 +27,7 @@ dependencies {
     implementation("edu.austral.dissis.chess:chess-ui:2.0.0")
     implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3")
     implementation("edu.austral.dissis.chess:simple-client-server:1.2.0")
+    testImplementation(kotlin("test"))
 }
 
 javafx {

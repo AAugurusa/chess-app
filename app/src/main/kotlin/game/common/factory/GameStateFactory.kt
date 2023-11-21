@@ -22,4 +22,8 @@ class GameStateFactory {
         return GameState(BoardFactory().initialiceCapaBlancaBoard(), BasicTurnStrategy(Colour.WHITE), History(listOf()), InProgressStateResult())
     }
 
+    fun emptyBoardGameStateBuilder(): GameState {
+        return GameState(BoardFactory().initialiceBasicEmptyBoard(), BasicTurnStrategy(Colour.WHITE), History(listOf()), InProgressStateResult())
+    }
+
 }

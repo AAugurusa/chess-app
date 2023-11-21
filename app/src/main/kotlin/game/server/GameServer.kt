@@ -19,7 +19,7 @@ class GameServer{
         .addMessageListener("init", jacksonTypeRef(), InitialServerListener(this))
         .build()
 
-    private val gameEngine = MyEngine.checkersEngine()
+    private val gameEngine = MyEngine.chessEngine()
     fun handleMove(message: Message<Move>) {
         when(val moveResult = gameEngine.applyMove(message.payload)){
             is GameOver -> server.broadcast(Message("game-over", moveResult))

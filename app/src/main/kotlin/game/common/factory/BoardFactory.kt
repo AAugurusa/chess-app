@@ -10,6 +10,10 @@ import game.common.movement.Position
  */
 class BoardFactory {
 
+    fun initialiceBasicEmptyBoard(): Board {
+        return Board(mapOf(), 8, 8)
+    }
+
     fun boardFromReference(board: Board, movement: Movement): Board {
         val pieceToMove = board.pieceMap[movement.from]!!
 
