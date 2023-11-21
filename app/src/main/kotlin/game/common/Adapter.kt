@@ -1,11 +1,11 @@
 package game.common
 
 import game.common.board.Board
-import chessgame.movement.Movement
-import chessgame.movement.Position
-import chessgame.piece.Piece
 import edu.austral.dissis.chess.gui.*
 import game.common.colour.Colour
+import game.common.movement.Movement
+import game.common.movement.Position
+import game.common.piece.Piece
 
 /**
  * @author Agustin Augurusa

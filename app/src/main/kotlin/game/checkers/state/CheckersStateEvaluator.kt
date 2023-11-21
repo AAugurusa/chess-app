@@ -1,10 +1,6 @@
 package game.checkers.state
 
 import adt.*
-import chessgame.movement.Movement
-import chessgame.movement.Position
-import chessgame.piece.Piece
-import game.checkers.validator.basic.BasicCheckersValidator
 import game.common.GameState
 import game.common.colour.Colour
 import game.common.state.StateEvaluator

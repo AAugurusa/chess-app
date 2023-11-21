@@ -1,7 +1,7 @@
-package game.checkers.validator.basic
+package game.checkers.validator
 
 import adt.ResultMovement
-import chessgame.movement.Movement
+import game.common.movement.Movement
 import game.common.GameState
 import game.common.validator.MovementValidator
 import game.common.validator.basic.*

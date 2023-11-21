@@ -4,10 +4,12 @@ import adt.InvalidMovementResult
 import adt.ResultMovement
 import adt.SuccessfulMovementResult
 import game.common.GameState
-import chessgame.movement.Movement
-import chessgame.movement.Position
+import game.common.movement.Movement
+import game.common.movement.Position
 import game.common.colour.Colour
 import game.common.validator.MovementValidator
+import game.common.validator.basic.MaxMovementCount
+import game.common.validator.basic.PathClearValidator
 import kotlin.math.abs
 
 /**
@@ -66,7 +68,7 @@ class CastlingMV() : MovementValidator {
         return MaxMovementCount(1, rookId).validate(movement, gameState) is SuccessfulMovementResult
     }
 
-    private fun kingHasNotMoved(movement : Movement,gameState: GameState): Boolean {
+    private fun kingHasNotMoved(movement : Movement, gameState: GameState): Boolean {
         val kingId = generateKingId(gameState)
         return MaxMovementCount(1, kingId).validate(movement, gameState) is SuccessfulMovementResult
     }

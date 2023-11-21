@@ -4,7 +4,7 @@ import adt.InvalidMovementResult
 import adt.ResultMovement
 import adt.SuccessfulMovementResult
 import game.common.GameState
-import chessgame.movement.Movement
+import game.common.movement.Movement
 import game.common.colour.Colour
 import game.common.validator.MovementValidator
 import kotlin.math.abs

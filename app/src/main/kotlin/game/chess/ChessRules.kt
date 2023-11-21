@@ -4,8 +4,8 @@ import adt.*
 import game.common.factory.GameStateFactory
 import game.common.history.HistoryUpdater
 import game.chess.state.ChessStateEvaluator
-import chessgame.movement.Movement
-import chessgame.movement.PieceMover
+import game.common.movement.Movement
+import game.common.movement.PieceMover
 import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.dissis.chess.gui.InvalidMove
 import edu.austral.dissis.chess.gui.MoveResult
@@ -15,7 +15,6 @@ import game.common.Adapter
 import game.common.GameState
 import game.common.Rules
 import game.common.promotion.PromotionStrategy
-import game.common.turn.ChessValidator
 
 /**
  * @author Agustin Augurusa

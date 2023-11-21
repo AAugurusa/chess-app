@@ -1,4 +1,4 @@
-package chessgame.movement
+package game.common.movement
 
 import game.common.GameState
 

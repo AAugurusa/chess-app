@@ -1,10 +1,10 @@
 package game.common
 
-import chessgame.movement.Movement
 import edu.austral.dissis.chess.gui.*
 import game.checkers.CheckersRules
 import game.chess.CapaBlancaRules
 import game.chess.ChessRules
+import game.common.movement.Movement
 
 /**
  * @author Agustin Augurusa
@@ -13,15 +13,15 @@ class MyEngine(rules: Rules) : GameEngine {
     val game = rules
 
     companion object{
-        fun chessEngine() : MyEngine{
+        fun chessEngine() : MyEngine {
             return MyEngine(ChessRules())
         }
 
-        fun checkersEngine() : MyEngine{
+        fun checkersEngine() : MyEngine {
             return MyEngine(CheckersRules())
         }
 
-        fun capaBlancaEngine() : MyEngine{
+        fun capaBlancaEngine() : MyEngine {
             return MyEngine(CapaBlancaRules())
         }
     }

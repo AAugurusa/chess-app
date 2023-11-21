@@ -3,10 +3,11 @@ package game.chess.mover
 import adt.SuccessfulMovementResult
 import game.chess.validator.CastlingMV
 import game.common.GameState
-import chessgame.movement.Movement
-import chessgame.movement.Position
+import game.common.movement.Movement
+import game.common.movement.Position
 import game.common.colour.Colour.*
-import game.common.movement.MovementBehaviour
+import game.common.mover.MovementBehaviour
+import game.common.mover.NormalMovementBehaviour
 
 /**
  * @author Agustin Augurusa
@@ -28,7 +29,11 @@ class KingMovementBehaviour : MovementBehaviour {
             when(gameState.getCurrentColour()){
                 WHITE -> {
                     val rook = gameState.getPiece(Position(gameState.board.numCol,1))
-                    return rook.mb.move(newGameState, Movement(Position(movement.to.column-1, 1),Position(gameState.board.numCol,1)))
+                    return rook.mb.move(newGameState, Movement(
+                        Position(movement.to.column-1, 1),
+                        Position(gameState.board.numCol,1)
+                    )
+                    )
                 }
                 BLACK -> {
                     val rook = gameState.getPiece(Position(gameState.board.numCol,gameState.board.numRow))

@@ -3,7 +3,7 @@ package game.common.validator.logic
 import adt.ResultMovement
 import adt.SuccessfulMovementResult
 import game.common.GameState
-import chessgame.movement.Movement
+import game.common.movement.Movement
 import game.common.validator.MovementValidator
 
 /**

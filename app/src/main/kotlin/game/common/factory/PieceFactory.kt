@@ -1,19 +1,16 @@
 package game.common.factory
 
-import game.chess.mover.NormalMovementBehaviour
+import game.common.mover.NormalMovementBehaviour
 import game.common.colour.Colour
-import chessgame.piece.Piece
 import game.checkers.mover.CheckerMovementBehaviour
 import game.checkers.mover.CrownedMovementBehaviour
-import game.checkers.validator.basic.InBetweenEnemyValidator
-import game.checkers.validator.basic.NotObligatedToEatValidator
+import game.checkers.validator.InBetweenEnemyValidator
+import game.checkers.validator.NotObligatedToEatValidator
 import game.common.validator.logic.AndMovementValidator
 import game.chess.mover.KingMovementBehaviour
 import game.chess.validator.*
-import game.common.validator.basic.DiagonalMovementValidator
-import game.common.validator.basic.FowardDiagonalMovementValidator
-import game.common.validator.basic.FowardMovementValidator
-import game.common.validator.basic.ToPositionClearValidator
+import game.common.piece.Piece
+import game.common.validator.basic.*
 import game.common.validator.logic.OrMovementValidator
 
 /**

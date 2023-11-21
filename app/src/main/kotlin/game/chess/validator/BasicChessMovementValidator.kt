@@ -2,7 +2,7 @@ package game.chess.validator
 
 import adt.ResultMovement
 import game.common.GameState
-import chessgame.movement.Movement
+import game.common.movement.Movement
 import game.common.validator.basic.ColourMovementValidator
 import game.common.validator.basic.EmptyOrEnemyMovementValidator
 import game.common.validator.logic.AndMovementValidator

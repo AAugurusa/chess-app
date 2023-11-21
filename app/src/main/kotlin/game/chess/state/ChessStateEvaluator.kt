@@ -2,7 +2,7 @@ package game.chess.state
 
 import adt.*
 import game.common.GameState
-import chessgame.movement.Movement
+import game.common.movement.Movement
 import game.common.colour.Colour
 import game.common.factory.BoardFactory
 import game.common.state.StateEvaluator

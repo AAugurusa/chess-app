@@ -1,4 +1,4 @@
-package chessgame.movement
+package game.common.movement
 
 /**
  * @author Agustin Augurusa

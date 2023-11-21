@@ -1,7 +1,7 @@
 package game.common
 
-import chessgame.movement.Movement
 import edu.austral.dissis.chess.gui.MoveResult
+import game.common.movement.Movement
 
 /**
  * @author Agustin Augurusa

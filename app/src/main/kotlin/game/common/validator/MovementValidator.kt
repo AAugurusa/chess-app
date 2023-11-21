@@ -2,7 +2,7 @@ package game.common.validator
 
 import adt.ResultMovement
 import game.common.GameState
-import chessgame.movement.Movement
+import game.common.movement.Movement
 
 /**
  * @author Agustin Augurusa

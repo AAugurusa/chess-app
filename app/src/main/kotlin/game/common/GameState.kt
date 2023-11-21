@@ -4,13 +4,13 @@ import adt.StateEvaluatorResult
 import adt.SuccessfulMovementResult
 import game.common.board.Board
 import game.common.turn.TurnStrategy
-import chessgame.movement.Movement
-import chessgame.movement.Position
-import chessgame.piece.Piece
-import game.checkers.validator.basic.BasicCheckersValidator
+import game.common.piece.Piece
+import game.checkers.validator.BasicCheckersValidator
 import game.chess.validator.BasicChessMovementValidator
 import game.common.history.History
 import game.common.colour.Colour
+import game.common.movement.Movement
+import game.common.movement.Position
 
 /**
  * @author Agustin Augurusa

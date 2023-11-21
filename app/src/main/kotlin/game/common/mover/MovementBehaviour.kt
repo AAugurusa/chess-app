@@ -1,7 +1,7 @@
-package game.common.movement
+package game.common.mover
 
 import game.common.GameState
-import chessgame.movement.Movement
+import game.common.movement.Movement
 
 /**
  * @author Agustin Augurusa

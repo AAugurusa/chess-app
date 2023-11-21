@@ -1,6 +1,6 @@
 package game.common.history
 
-import chessgame.movement.Position
+import game.common.movement.Position
 import game.common.board.Board
 
 /**

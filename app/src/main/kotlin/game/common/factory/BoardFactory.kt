@@ -1,9 +1,9 @@
 package game.common.factory
 
 import game.common.board.Board
-import chessgame.movement.Movement
+import game.common.movement.Movement
 import game.common.colour.Colour
-import chessgame.movement.Position
+import game.common.movement.Position
 
 /**
  * @author Agustin Augurusa
@@ -116,7 +116,7 @@ class BoardFactory {
         return Board(pieceMap, 8, 10)
     }
 
-    fun initialiceCheckersBoard(): Board{
+    fun initialiceCheckersBoard(): Board {
         val pieceFactory = PieceFactory()
         val pieceMap = mapOf(
             (Position(1, 1) to pieceFactory.checkerFactory("CW1", Colour.WHITE)),

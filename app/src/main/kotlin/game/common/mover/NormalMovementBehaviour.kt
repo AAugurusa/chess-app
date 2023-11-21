@@ -1,9 +1,9 @@
-package game.chess.mover
+package game.common.mover
 
 import game.common.GameState
-import chessgame.movement.Movement
+import game.common.movement.Movement
 import game.common.factory.BoardFactory
-import game.common.movement.MovementBehaviour
+import game.common.mover.MovementBehaviour
 
 /**
  * @author Agustin Augurusa

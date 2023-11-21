@@ -2,7 +2,7 @@ package game.chess.promotion
 
 import game.common.factory.PieceFactory
 import game.common.GameState
-import chessgame.movement.Position
+import game.common.movement.Position
 import game.common.colour.Colour
 import game.common.promotion.PromotionStrategy
 

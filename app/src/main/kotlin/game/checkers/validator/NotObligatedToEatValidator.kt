@@ -1,11 +1,11 @@
-package game.checkers.validator.basic
+package game.checkers.validator
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
 import adt.SuccessfulMovementResult
-import chessgame.movement.Movement
-import chessgame.movement.Position
-import game.chess.validator.LimitMovementValidator
+import game.common.movement.Movement
+import game.common.movement.Position
+import game.common.validator.basic.LimitMovementValidator
 import game.common.GameState
 import game.common.validator.MovementValidator
 import game.common.validator.basic.DiagonalMovementValidator

@@ -1,20 +1,19 @@
 package game.checkers.mover
 
 import adt.SuccessfulMovementResult
-import chessgame.movement.Movement
-import chessgame.movement.Position
-import chessgame.piece.Piece
-import game.checkers.validator.basic.BasicCheckersValidator
-import game.checkers.validator.basic.InBetweenEnemyValidator
-import game.checkers.validator.basic.NotObligatedToEatValidator
-import game.chess.mover.NormalMovementBehaviour
-import game.chess.validator.LimitMovementValidator
+import game.common.movement.Movement
+import game.common.movement.Position
+import game.common.piece.Piece
+import game.checkers.validator.BasicCheckersValidator
+import game.checkers.validator.InBetweenEnemyValidator
+import game.checkers.validator.NotObligatedToEatValidator
+import game.common.mover.NormalMovementBehaviour
+import game.common.validator.basic.LimitMovementValidator
 import game.common.GameState
-import game.common.movement.MovementBehaviour
+import game.common.mover.MovementBehaviour
 import game.common.validator.basic.FowardDiagonalMovementValidator
 import game.common.validator.basic.ToPositionClearValidator
 import game.common.validator.logic.AndMovementValidator
-import kotlin.math.abs
 
 /**
  * @author Agustin Augurusa
@@ -80,7 +79,7 @@ class CheckerMovementBehaviour : MovementBehaviour {
         return inmutableGameState
     }
 
-    private fun canPieceStillEat(gameState: GameState, actualPiece : Piece): Movement{
+    private fun canPieceStillEat(gameState: GameState, actualPiece : Piece): Movement {
         val piecePosition = gameState.getPositionByPieceID(actualPiece.id)!!
         for (i in 1..gameState.board.numCol) {
             for (j in 1..gameState.board.numRow) {

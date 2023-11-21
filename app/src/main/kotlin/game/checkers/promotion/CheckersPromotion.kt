@@ -1,6 +1,6 @@
 package game.checkers.promotion
 
-import chessgame.movement.Position
+import game.common.movement.Position
 import game.common.GameState
 import game.common.colour.Colour
 import game.common.factory.PieceFactory

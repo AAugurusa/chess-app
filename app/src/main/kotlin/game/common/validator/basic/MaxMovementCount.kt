@@ -1,11 +1,11 @@
-package game.chess.validator
+package game.common.validator.basic
 
 import adt.InvalidMovementResult
 import adt.ResultMovement
 import adt.SuccessfulMovementResult
 import game.common.GameState
-import chessgame.movement.Movement
-import chessgame.movement.Position
+import game.common.movement.Movement
+import game.common.movement.Position
 import game.common.validator.MovementValidator
 
 /**

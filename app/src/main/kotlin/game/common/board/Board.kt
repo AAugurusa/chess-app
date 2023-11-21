@@ -1,7 +1,7 @@
 package game.common.board
 
-import chessgame.movement.Position
-import chessgame.piece.Piece
+import game.common.movement.Position
+import game.common.piece.Piece
 
 /**
  * @author Agustin Augurusa
