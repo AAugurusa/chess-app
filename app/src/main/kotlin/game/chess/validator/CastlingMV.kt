@@ -18,26 +18,61 @@ import kotlin.math.abs
 class CastlingMV() : MovementValidator {
 
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        val kingNewPosition = Position(movement.to.column, movement.to.row)
-        if (isKingMovingTwoSquares(movement) && isMovementInCorrectRow(movement, gameState) && kingHasNotMoved(movement, gameState)) {
-            if (isShortCastlin(movement)) {
-                val rookPosition = Position(movement.to.column + 1, movement.to.row)
-                val extendedMove = Movement(movement.from, rookPosition)
-                if(isRookOfColourInPosition(rookPosition, gameState, 2) && isPathClear(extendedMove, gameState) && !(gameState.isPositionThreaten(kingNewPosition)) && rookHasNotMoved(movement, gameState)){
-                    return SuccessfulMovementResult()
-                }
-            }else{
-                val rookPosition = Position(movement.to.column - 2, movement.to.row)
-                val extendedMove = Movement(movement.from, rookPosition)
-                if(isRookOfColourInPosition(rookPosition, gameState, 1) && isPathClear(extendedMove, gameState) && !(gameState.isPositionThreaten(kingNewPosition)) && rookHasNotMoved(movement, gameState)){
-                    return SuccessfulMovementResult()
-                }
+        if (kingIsInValidPosition(movement, gameState)) {
+            return if (isShortCastlin(movement)) {
+                evaluateShortCastlin(movement, gameState)
+            } else {
+                evaluateLongCastling(movement, gameState)
             }
         }
         return InvalidMovementResult("Invalid movement")
     }
 
-    private fun isPathClear(movement: Movement, gameState: GameState) : Boolean{
+    private fun evaluateShortCastlin(movement: Movement, gameState: GameState): ResultMovement {
+        if (isRookAbleToShortCastle(movement, gameState)) {
+            return SuccessfulMovementResult()
+        }
+        return InvalidMovementResult("Invalid movement")
+    }
+
+    private fun isRookAbleToShortCastle(movement: Movement, gameState: GameState): Boolean {
+        val kingNewPosition = Position(movement.to.column, movement.to.row)
+        val rookPosition = Position(movement.to.column + 1, movement.to.row)
+        val extendedMove = Movement(movement.from, rookPosition)
+        return isRookOfColourInPosition(rookPosition, gameState, 2) && isPathClear(
+            extendedMove,
+            gameState
+        ) && !(gameState.isPositionThreaten(kingNewPosition)) && rookHasNotMoved(movement, gameState)
+    }
+
+    private fun isRookAbleToLongCastle(movement: Movement, gameState: GameState): Boolean {
+        val kingNewPosition = Position(movement.to.column, movement.to.row)
+        val rookPosition = Position(movement.to.column - 2, movement.to.row)
+        val extendedMove = Movement(movement.from, rookPosition)
+        return (isRookOfColourInPosition(rookPosition, gameState, 1) && isPathClear(
+            extendedMove,
+            gameState
+        ) && !(gameState.isPositionThreaten(kingNewPosition)) && rookHasNotMoved(movement, gameState))
+    }
+
+    private fun evaluateLongCastling(movement: Movement, gameState: GameState): ResultMovement {
+        val kingNewPosition = Position(movement.to.column, movement.to.row)
+        val rookPosition = Position(movement.to.column - 2, movement.to.row)
+        val extendedMove = Movement(movement.from, rookPosition)
+        if (isRookAbleToLongCastle(movement, gameState)) {
+            return SuccessfulMovementResult()
+        }
+        return InvalidMovementResult("Invalid movement")
+    }
+
+    private fun kingIsInValidPosition(movement: Movement, gameState: GameState): Boolean {
+        return isKingMovingTwoSquares(movement) && isMovementInCorrectRow(movement, gameState) && kingHasNotMoved(
+            movement,
+            gameState
+        )
+    }
+
+    private fun isPathClear(movement: Movement, gameState: GameState): Boolean {
         return PathClearValidator().validate(movement, gameState) is SuccessfulMovementResult
     }
 
@@ -52,23 +87,23 @@ class CastlingMV() : MovementValidator {
         return false
     }
 
-    private fun rookHasNotMoved(movement: Movement, gameState: GameState) : Boolean{
-        val num = if(isShortCastlin(movement)) {
+    private fun rookHasNotMoved(movement: Movement, gameState: GameState): Boolean {
+        val num = if (isShortCastlin(movement)) {
             2
-        }else{
+        } else {
             1
         }
 
-        val rookId = if(gameState.getCurrentColour() == Colour.WHITE){
+        val rookId = if (gameState.getCurrentColour() == Colour.WHITE) {
             "RW$num"
-        }else{
+        } else {
             "RB$num"
         }
 
         return MaxMovementCount(1, rookId).validate(movement, gameState) is SuccessfulMovementResult
     }
 
-    private fun kingHasNotMoved(movement : Movement, gameState: GameState): Boolean {
+    private fun kingHasNotMoved(movement: Movement, gameState: GameState): Boolean {
         val kingId = generateKingId(gameState)
         return MaxMovementCount(1, kingId).validate(movement, gameState) is SuccessfulMovementResult
     }
@@ -91,9 +126,9 @@ class CastlingMV() : MovementValidator {
         } else {
             "RB$side"
         }
-        if(!gameState.getPieceMap().containsKey(position)){
+        if (!gameState.getPieceMap().containsKey(position)) {
             return false
-        }else{
+        } else {
             return gameState.getPiece(position).id == idRook
         }
     }

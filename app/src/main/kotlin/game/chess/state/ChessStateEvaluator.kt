@@ -50,28 +50,42 @@ class ChessStateEvaluator :
     }
 
     private fun isThereAWayOfMate(gameState: GameState): Boolean {
-        val hasRook = isTherePieceType(gameState, "ROOK")
-        val hasPawn = isTherePieceType(gameState, "PAWN")
-        val hasQueen = isTherePieceType(gameState, "QUEEN")
 
-        val whiteBishops = numberOfPieceTypeInColour(gameState, "BISHOP", Colour.WHITE)
-        val blackBishops = numberOfPieceTypeInColour(gameState, "BISHOP", Colour.BLACK)
-        val whiteKnights = numberOfPieceTypeInColour(gameState, "KNIGHT", Colour.WHITE)
-        val blackKnights = numberOfPieceTypeInColour(gameState, "KNIGHT", Colour.BLACK)
-
-        if ((hasRook || hasPawn || hasQueen)) {//si no hay esto anda a fijarte abajo
+        if (hasRookPawnOrQueen(gameState)) {//si no hay esto anda a fijarte abajo
             return true
         }
 
-        if (whiteBishops >= 2 || blackBishops >= 2) {
+        if (hasTwoBishopsOnEachSide(gameState)) {
             return true
         }
 
-        if ((whiteBishops >= 1 && whiteKnights >= 1) || (blackBishops >= 1 && blackKnights >= 1)) {
+        if (hasLastPieces(gameState)) {
             return true
         }
 
         return false
+    }
+
+    private fun hasRookPawnOrQueen(gameState: GameState) : Boolean{
+        val hasRook = isTherePieceType(gameState, "ROOK")
+        val hasPawn = isTherePieceType(gameState, "PAWN")
+        val hasQueen = isTherePieceType(gameState, "QUEEN")
+        return (hasRook || hasPawn || hasQueen)
+    }
+
+    private fun hasTwoBishopsOnEachSide(gameState: GameState): Boolean{
+        val whiteBishops = numberOfPieceTypeInColour(gameState, "BISHOP", Colour.WHITE)
+        val blackBishops = numberOfPieceTypeInColour(gameState, "BISHOP", Colour.BLACK)
+        return (whiteBishops >= 2 || blackBishops >= 2)
+    }
+
+
+    private fun hasLastPieces(gameState: GameState) : Boolean{
+        val whiteBishops = numberOfPieceTypeInColour(gameState, "BISHOP", Colour.WHITE)
+        val blackBishops = numberOfPieceTypeInColour(gameState, "BISHOP", Colour.BLACK)
+        val whiteKnights = numberOfPieceTypeInColour(gameState, "KNIGHT", Colour.WHITE)
+        val blackKnights = numberOfPieceTypeInColour(gameState, "KNIGHT", Colour.BLACK)
+        return (whiteBishops >= 1 && whiteKnights >= 1) || (blackBishops >= 1 && blackKnights >= 1)
     }
 
 

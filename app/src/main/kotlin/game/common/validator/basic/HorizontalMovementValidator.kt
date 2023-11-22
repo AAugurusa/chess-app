@@ -12,10 +12,14 @@ import game.common.validator.MovementValidator
  */
 class HorizontalMovementValidator : MovementValidator {
     override fun validate(movement: Movement, gameState: GameState): ResultMovement {
-        if ((movement.from.column != movement.to.column) && (movement.from.row == movement.to.row)) {
+        if (isMovementHorizontal(movement)) {
             return SuccessfulMovementResult()
         }
         return InvalidMovementResult("Piece is not moving correctly")
+    }
+
+    fun isMovementHorizontal(movement: Movement): Boolean {
+        return (movement.from.column != movement.to.column) && (movement.from.row == movement.to.row)
     }
 
 }
