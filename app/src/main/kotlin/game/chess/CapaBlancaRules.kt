@@ -2,7 +2,7 @@ package game.chess
 
 import adt.*
 import game.common.movement.Movement
-import game.common.movement.PieceMover
+import game.common.mover.PieceMover
 import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.dissis.chess.gui.InvalidMove
 import edu.austral.dissis.chess.gui.MoveResult
