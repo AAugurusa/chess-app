@@ -55,18 +55,18 @@ class NotObligatedToEatValidator : MovementValidator {
                 }
             }
         }
-    return SuccessfulMovementResult()
-}
-
-
-private fun generateMovementList(gameState: GameState): List<Position> {
-    val positionList = mutableListOf<Position>()
-    for (i in 1..gameState.board.numCol) {
-        for (j in 1..gameState.board.numRow) {
-            positionList.add(Position(i, j))
-        }
+        return SuccessfulMovementResult()
     }
-    val list = positionList
-    return list
-}
+
+
+    private fun generateMovementList(gameState: GameState): List<Position> {
+        val positionList = mutableListOf<Position>()
+        for (i in 1..gameState.board.numCol) {
+            for (j in 1..gameState.board.numRow) {
+                positionList.add(Position(i, j))
+            }
+        }
+        val list = positionList
+        return list
+    }
 }
